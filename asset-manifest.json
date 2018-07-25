@@ -1,6 +1,10 @@
 {
-  "main.css": "static/css/main.b819def4.css",
-  "main.css.map": "static/css/main.b819def4.css.map",
-  "main.js": "static/js/main.401676b5.js",
-  "main.js.map": "static/js/main.401676b5.js.map"
+  "main.css": "static/css/main.cce11c4d.css",
+  "main.css.map": "static/css/main.cce11c4d.css.map",
+  "main.js": "static/js/main.eb9fb35f.js",
+  "main.js.map": "static/js/main.eb9fb35f.js.map",
+  "static/media/edgy-16x16-arrow_down.svg": "static/media/edgy-16x16-arrow_down.f18b9305.svg",
+  "static/media/edgy-16x16-arrow_left.svg": "static/media/edgy-16x16-arrow_left.fdfc0f3c.svg",
+  "static/media/edgy-16x16-arrow_right.svg": "static/media/edgy-16x16-arrow_right.b1747ec8.svg",
+  "static/media/edgy-16x16-arrow_up.svg": "static/media/edgy-16x16-arrow_up.6bf29e91.svg"
 }
