@@ -45,14 +45,16 @@ let updateFOV = (_game: GameMap): GameMap => {
   // awful
   let game: GameMap = JSON.parse(JSON.stringify(_game))
 
-  let blocks = 3
+  let blocks = 4
   for (let ox = -blocks; ox <= blocks; ox++) {
     let x = game.playerPos[0] + ox
     let row: Tile[] = []
     for (let oy = -blocks; oy <= blocks; oy++) {
       let y = game.playerPos[1] + oy
       if (x >= game.mapBounds[0][0] && y >= game.mapBounds[0][1] && x < game.mapBounds[1][0] && y < game.mapBounds[1][1]) {
-        game.map[x][y].visible = true
+          if (ox**2 + oy**2 <= 16) {
+            game.map[x][y].visible = true
+          }
       }
     }
   }
