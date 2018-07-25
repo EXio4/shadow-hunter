@@ -45,7 +45,7 @@ export const Map = (props: MapProps) => {
   return (<div  {...ArrowKeysReact.events} tabIndex="1" style={style}>
     {around.map((row, x) =>  
       row.map((tile, y) => (
-        <Tile {...tile} pos={[x,y]} key={x * 1024 + y}>
+        <Tile {...tile} pos={[x,y]} key={x * 1024 + y} important={x === 10 && y === 10}>
           {
             (x === 10 && y === 10) ? <img className="idle" /> : null
           }
