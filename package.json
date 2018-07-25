@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "arrow-keys-react": "^1.0.6",
-    "flow-bin": "^0.77.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
@@ -21,6 +20,7 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "flow-bin": "^0.77.0",
     "gh-pages": "^1.2.0"
   }
 }
