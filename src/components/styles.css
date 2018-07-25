@@ -1,0 +1,13 @@
+.idle { 
+  height: 32px;
+  width: 32px;
+  animation: idle steps(4); 
+  animation-duration: 0.4s;
+  animation-iteration-count: infinite;
+  background-image: url('../assets/idle_cat.png');
+}
+
+@keyframes idle {
+  from { background-position:2px 0px; }
+  to { background-position:128px 0px; }
+}
