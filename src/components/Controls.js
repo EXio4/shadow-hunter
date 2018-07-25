@@ -10,9 +10,11 @@ type Props = {
 }
 
 let style = {
-    'flex': '0 0 auto', 
-    'backgroundColor': '#555',
-    'margin': '5px'
+    'position': 'absolute',
+    'top': '2vmin',
+    'right': '2vmin',
+    'width': '16vmin',
+    'height': '16vmin',
 }
 
 let button = {
