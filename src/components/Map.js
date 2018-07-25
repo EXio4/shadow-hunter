@@ -18,8 +18,13 @@ export type MapProps = {
 
 let style = {
   'position': 'absolute',
-  'left': '20vw',
-  'margin': '0 auto',
+  'top': '50%',
+  'left': '50%',
+  'justify-content': 'center',
+  'align-items': 'center',
+  'height': '640px',
+  'width': '640px',
+  'transform': 'translate(-50%, -50%)',
   'backgroundColor': '#333'
 }
 
