@@ -24,16 +24,16 @@ type MapState = {
 }
 
 let flexbox = {
-    'display': 'flex',
-    'justifyContext': 'center',
 }
 
 let style = (blocks: number) => ({
-  'flex': '0 0 auto', 
+  'top': '1vmin',
+  'left': 'calc(( 100% -  ' +  String(32 * (blocks*2+1)) + 'px' + ' ) / 2)',
   'position': 'absolute',
-  'height': String(32 * (blocks*2)) + 'px',
-  'width': String(32 * (blocks*2)) + 'px',
-  'backgroundColor': '#333'
+  'height': String(32 * (blocks*2+1)) + 'px',
+  'width': String(32 * (blocks*2+1)) + 'px',
+  'backgroundColor': '#333',
+  'border': '1vmin solid #77a',
 })
 
 export class Map extends React.Component<MapProps, MapState> {
@@ -54,7 +54,7 @@ export class Map extends React.Component<MapProps, MapState> {
     updateWindowDimensions = () => {
         let width = window.innerWidth
         let height = window.innerHeight
-        let ratio = Math.round(((width > height ? height : width) / 32)/2) - 2
+        let ratio = Math.floor(((width > height ? height : width) / 32)/2 - 0.5)
         
         this.setState({ blocks: ratio, win: { width: window.innerWidth, height: window.innerHeight }});
     }
