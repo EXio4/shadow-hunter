@@ -7,10 +7,19 @@ import Noise from 'simplex-noise'
 
 export type Vec2 = [number, number]
 
+export type PlayerStats = {
+    health: number,
+    shield: number,
+    lvl: number,
+    xp_curr: number,
+    xp_needed: number,
+}
+
 export type GameMap = {
   map: Tile[][],
   mapBounds: [Vec2, Vec2],
   playerPos: Vec2,
+  stats: PlayerStats,
 }
 
 export const getNearby = (game: GameMap, blocks: number): Tile[][] => {
@@ -96,7 +105,14 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
     map.push(row)
   }
 
-  let game = { map: map, mapBounds: [[0,0], [size,size]], playerPos: playerPos }
+  let stats = {
+      health: 100,
+      shield: 30,
+      lvl: 0,
+      xp_curr: 99,
+      xp_needed: 101,
+  }
+  let game = { map: map, mapBounds: [[0,0], [size,size]], playerPos: playerPos, stats: stats }
 
   return updateFOV(game)
 }

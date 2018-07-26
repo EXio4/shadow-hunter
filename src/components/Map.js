@@ -4,6 +4,7 @@ import React from 'react'
 import ArrowKeysReact from 'arrow-keys-react'
 
 import Tile from './Tile'
+import Stats from './Stats'
 import Controls from './Controls'
 
 import type { GameMap } from '../logic/Game'
@@ -96,6 +97,7 @@ export class Map extends React.Component<MapProps, MapState> {
         </div>)
         
         return (<div style={flexbox} {...ArrowKeysReact.events}>
+            <Stats stats={this.props.map.stats} />
             {map}
             <Controls move={this.props.move} />
         </div>)
