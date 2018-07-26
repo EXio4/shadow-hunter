@@ -1,10 +1,11 @@
 {
-  "main.css": "static/css/main.762e7fbe.css",
-  "main.css.map": "static/css/main.762e7fbe.css.map",
-  "main.js": "static/js/main.0c2976de.js",
-  "main.js.map": "static/js/main.0c2976de.js.map",
+  "main.css": "static/css/main.35b8be75.css",
+  "main.css.map": "static/css/main.35b8be75.css.map",
+  "main.js": "static/js/main.b2e034a5.js",
+  "main.js.map": "static/js/main.b2e034a5.js.map",
   "static/media/edgy-16x16-arrow_down.svg": "static/media/edgy-16x16-arrow_down.f18b9305.svg",
   "static/media/edgy-16x16-arrow_left.svg": "static/media/edgy-16x16-arrow_left.fdfc0f3c.svg",
   "static/media/edgy-16x16-arrow_right.svg": "static/media/edgy-16x16-arrow_right.b1747ec8.svg",
-  "static/media/edgy-16x16-arrow_up.svg": "static/media/edgy-16x16-arrow_up.6bf29e91.svg"
+  "static/media/edgy-16x16-arrow_up.svg": "static/media/edgy-16x16-arrow_up.6bf29e91.svg",
+  "static/media/gems.svg": "static/media/gems.ded879cf.svg"
 }
