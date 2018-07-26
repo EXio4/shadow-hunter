@@ -3,6 +3,8 @@
 import type { Tile, TileID } from './Tiles'
 import { randomTile } from './Tiles'
 
+import Noise from 'simplex-noise'
+
 export type Vec2 = [number, number]
 
 export type GameMap = {
@@ -76,12 +78,20 @@ export const move = (_game: GameMap, x: number, y: number): GameMap => {
 }
 
 
-export const genRandomMap = (size: number, playerPos: [number, number]): GameMap => {
+export const genRandomMap = (size: number, playerPos: [number, number], seed?: string): GameMap => {
+  let noise = new Noise(seed)
   let map: Tile[][] = []
   for (let x=0; x<size; x++) {
     let row: Tile[] = []
     for (let y=0; y<size; y++) {
-      row.push({ tileId: randomTile(), visible: false })
+      let d = 14 * (noise.noise2D(x/5, y/5) + 1)
+      let type = "void"
+      if      (d <= 6)   { type = "water"; d = 5 }
+      else if (d <= 10)  { type = "sand" ; }
+      else if (d <= 18)  { type = "grass"; }
+      else               { type = "stone"; }
+      d -= 7
+      row.push( { tileId: type, height: Math.floor(d), visible: false } )
     }
     map.push(row)
   }

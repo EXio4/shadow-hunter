@@ -10,6 +10,7 @@ export type TileProps = {
   children?: Node,
   tileId: TileID,
   important?: boolean,
+  height: number,
   visible: boolean,
   pos: [number, number]
 }
@@ -23,6 +24,7 @@ const obtainColor = ({ tileId, visible }: TileProps) => {
 
   colors.set('grass', '#98dd00')
   colors.set('water', '#00ddca')
+  colors.set('sand' , '#c2b280')
   colors.set('dirt' , '#bb8b00')
   colors.set('stone', '#8d8d8d')
   colors.set('void' , '#000000')
@@ -30,20 +32,11 @@ const obtainColor = ({ tileId, visible }: TileProps) => {
   return colors.get(tileId)
 }
 
-const obtainHeight = ({ tileId, visible }: TileProps) => {
+const obtainHeight = ({ tileId, height, visible }: TileProps) => {
   if (!visible) {
     return -2
   }
-
-  let colors = new Map()
-
-  colors.set('grass', 2)
-  colors.set('water', -5)
-  colors.set('dirt' , 0)
-  colors.set('stone', 4)
-  colors.set('void' , -6)
-
-  return colors.get(tileId)
+  return height
 }
 
 

@@ -4,17 +4,13 @@
 
 export type TileID = "grass"
                    | "water"
-                   | "dirt"
+                   | "sand"
                    | "stone"
                    | "void"
 
 
 export type Tile = {
   tileId: TileID,
+  height: number,
   visible: boolean,
-}
-
-export const randomTile = (): TileID => {
-  let type: TileID[] = ["grass", "stone", "water", "dirt"]
-  return type[Math.floor(type.length * Math.random())]
 }

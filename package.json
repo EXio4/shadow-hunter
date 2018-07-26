@@ -8,7 +8,8 @@
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "simplex-noise": "^2.4.0"
   },
   "homepage": "https://exio4.github.io/shadow-hunter",
   "scripts": {
