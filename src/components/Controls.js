@@ -52,10 +52,10 @@ const Controls = (props: Props) => {
     let e_left  = () => props.move(-1,  0)
     let e_right = () => props.move( 1,  0)
     return (<div style={style}>
-        <img style={up}    onClick={e_up}    onTouchdown={e_up}    src={i_up}   />
-        <img style={down}  onClick={e_down}  onTouchdown={e_down}  src={i_down} />
-        <img style={left}  onClick={e_left}  onTouchdown={e_left}  src={i_left} />
-        <img style={right} onClick={e_right} onTouchdown={e_right} src={i_right}/>
+        <img alt="UP" style={up}    onClick={e_up}    onTouchdown={e_up}    src={i_up}   />
+        <img alt="DW" style={down}  onClick={e_down}  onTouchdown={e_down}  src={i_down} />
+        <img alt="LF" style={left}  onClick={e_left}  onTouchdown={e_left}  src={i_left} />
+        <img alt="RT" style={right} onClick={e_right} onTouchdown={e_right} src={i_right}/>
      </div>
     )
 }

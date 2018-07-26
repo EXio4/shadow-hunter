@@ -26,6 +26,11 @@ type MapState = {
 let flexbox = {
 }
 
+let player = {
+    'transform': 'rotateZ(-45deg) scale3d(1, 2, 1) translate3d(0, -10px, 0px)',
+    'imageRendering': 'pixelated',
+}
+
 let style = (blocks: number) => ({
   'top': '1vmin',
   'left': 'calc(( 100% -  ' +  String(32 * (blocks*2+1)) + 'px' + ' ) / 2)',
@@ -33,6 +38,7 @@ let style = (blocks: number) => ({
   'height': String(32 * (blocks*2+1)) + 'px',
   'width': String(32 * (blocks*2+1)) + 'px',
   'backgroundColor': '#333',
+  'transform': 'rotateX(60deg) rotateZ(45deg)',
   'border': '1vmin solid #77a',
 })
 
@@ -54,7 +60,7 @@ export class Map extends React.Component<MapProps, MapState> {
     updateWindowDimensions = () => {
         let width = window.innerWidth
         let height = window.innerHeight
-        let ratio = Math.floor(((width > height ? height : width) / 32)/2 - 0.5)
+        let ratio = Math.floor(((width > height ? height : width) / 28)/2 - 0.5)
         
         this.setState({ blocks: ratio, win: { width: window.innerWidth, height: window.innerHeight }});
     }
@@ -82,7 +88,7 @@ export class Map extends React.Component<MapProps, MapState> {
             row.map((tile, y) => (
                 <Tile {...tile} pos={[x,y]} key={x * 1024 + y} important={x === blocks && y === blocks}>
                 {
-                    (x === blocks && y === blocks) ? <img className="idle" /> : null
+                    (x === blocks && y === blocks) ? <img style={player} className="idle" /> : null
                 }
                 </Tile>
             ))

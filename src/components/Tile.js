@@ -30,7 +30,26 @@ const obtainColor = ({ tileId, visible }: TileProps) => {
   return colors.get(tileId)
 }
 
+const obtainHeight = ({ tileId, visible }: TileProps) => {
+  if (!visible) {
+    return -2
+  }
+
+  let colors = new Map()
+
+  colors.set('grass', 2)
+  colors.set('water', -5)
+  colors.set('dirt' , 0)
+  colors.set('stone', 4)
+  colors.set('void' , -6)
+
+  return colors.get(tileId)
+}
+
+
+//rotateZ(-45deg) rotateY(-60deg)
 const getStyle = (props: TileProps) => {
+  let height = obtainHeight(props)
   let style = {
     'backgroundColor': obtainColor(props),
     'width': '32px',
@@ -38,7 +57,8 @@ const getStyle = (props: TileProps) => {
     'position': 'absolute',
     'left': '0',
     'top': '0',
-    'transform': 'translate(' + props.pos[0] * 32 + 'px, ' + props.pos[1] * 32 + 'px)',
+    'zIndex': (1000+props.pos[0]+props.pos[1])*2,
+    'transform': 'translate3d(' + (props.pos[0] * 32 - height) + 'px, ' + (props.pos[1] * 32 - height) + 'px, 0px) ',
     filter: undefined
   }
   if (props.important === true) {
