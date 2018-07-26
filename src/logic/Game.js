@@ -30,7 +30,7 @@ export const getNearby = (game: GameMap, blocks: number): Tile[][] => {
       } else {
         // out of bounds
 
-        row.push({ tileId: 'void', visible: true })
+        row.push({ tileId: 'void', height: -4, visible: true })
 
       }
     }
