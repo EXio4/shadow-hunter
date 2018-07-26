@@ -114,12 +114,13 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
   }
  
   let player = playerPos
-  if (map[player[0], player[1]].tileId === 'water') { 
+  if (map[player[0]][player[1]].tileId === 'water') { 
       for (let ox=0; ox<size; ox++) {
           let x = player[0] + ox
           if (x < size) {
               if (map[x][player[1]].tileId !== 'water') {
                   player = [x, player[1]]
+                  break
               }
           }
       }
