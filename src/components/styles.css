@@ -31,3 +31,39 @@
         filter: contrast(100%);
     }
 }
+
+.hurt {
+  animation: hurt;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transition-timing-function: ease;
+}
+
+@keyframes hurt {
+    0% {
+        background: #333;
+    }
+    40% {
+        background: #d22;
+    }
+    60%, 100% {
+        background: #333;
+    }
+}
+
+ 
+
+.deadMap {
+  animation: dying;
+  animation-duration: 1.5s;
+  filter: grayscale(100%);
+}
+
+@keyframes dying {
+    0% {
+        filter: grayscale(0%);
+    }
+    100% {
+        filter: grayscale(100%);
+    }
+}

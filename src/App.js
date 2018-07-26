@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux'
 
-import { Move } from './redux/actions'
+import { Move, Tick } from './redux/actions'
 import { store } from './redux/redux'
 
 import Map from './components/Map'
@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = { 
-  move: Move
+  move: Move,
+  tick: Tick,
 };
 
 const MapContainer = connect(  

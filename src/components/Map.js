@@ -2,10 +2,12 @@
 
 import React from 'react'
 import ArrowKeysReact from 'arrow-keys-react'
+import BodyClassName from 'react-body-classname'
 
 import Tile from './Tile'
 import Stats from './Stats'
 import Controls from './Controls'
+import Player from './Player'
 
 import type { GameMap } from '../logic/Game'
 import { getNearby } from '../logic/Game'
@@ -16,7 +18,13 @@ import './styles.css'
 
 export type MapProps = {
   map: GameMap,
-  move: (number, number) => Action
+  move: (number, number) => Action,
+  tick: () => Action,
+}
+
+type WindowSize = {
+    width: number,
+    height: number
 }
 
 type MapState = {
@@ -25,11 +33,6 @@ type MapState = {
 }
 
 let flexbox = {
-}
-
-let player = {
-    'transform': 'rotateZ(-45deg) scale3d(1, 2, 1) translate3d(0, -10px, 0px)',
-    'imageRendering': 'pixelated',
 }
 
 let style = (blocks: number) => ({
@@ -44,17 +47,27 @@ let style = (blocks: number) => ({
 })
 
 export class Map extends React.Component<MapProps, MapState> {
+    interval: IntervalID | null;
+    
     constructor(props: MapProps) {
         super(props)
         this.state = { blocks: 0, win: { height: 0, width: 0 } }
+        this.interval = null
     }
     
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        if (!this.interval) {
+            this.interval = window.setInterval(() => { this.props.tick() }, 1000)
+        }
     }
 
     componentWillUnmount() {
+        if (this.interval) {
+            window.clearInterval(this.interval)
+            this.interval = null
+        }
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
@@ -65,6 +78,7 @@ export class Map extends React.Component<MapProps, MapState> {
         
         this.setState({ blocks: ratio, win: { width: window.innerWidth, height: window.innerHeight }});
     }
+    
     render() {
         let around = getNearby(this.props.map, this.state.blocks)
         
@@ -84,12 +98,12 @@ export class Map extends React.Component<MapProps, MapState> {
         });
 
         const blocks = this.state.blocks
-        const map = (<div tabIndex="1" style={style(blocks)}>
+        const map = (<div tabIndex="1" className={this.props.map.dead ? 'deadMap' : 'aliveMap'} style={style(blocks)}>
             {around.map((row, x) =>  
             row.map((tile, y) => (
                 <Tile {...tile} pos={[x,y]} key={x * 1024 + y} important={x === blocks && y === blocks}>
                 {
-                    (x === blocks && y === blocks) ? <div style={player} className="idle" /> : null
+                    (x === blocks && y === blocks) ? <Player {...this.props.map} /> : null
                 }
                 </Tile>
             ))
@@ -98,7 +112,9 @@ export class Map extends React.Component<MapProps, MapState> {
         
         return (<div style={flexbox} {...ArrowKeysReact.events}>
             <Stats stats={this.props.map.stats} />
-            {map}
+            <BodyClassName className={this.props.map.hurt ? 'hurt' : ''}>
+                {map}
+            </BodyClassName>
             <Controls move={this.props.move} />
         </div>)
     }

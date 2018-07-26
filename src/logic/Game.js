@@ -1,8 +1,6 @@
 // @flow
 
 import type { Tile, TileID } from './Tiles'
-import { randomTile } from './Tiles'
-
 import Noise from 'simplex-noise'
 
 export type Vec2 = [number, number]
@@ -20,6 +18,8 @@ export type GameMap = {
   mapBounds: [Vec2, Vec2],
   playerPos: Vec2,
   stats: PlayerStats,
+  hurt: boolean,
+  dead: boolean,
 }
 
 export const getNearby = (game: GameMap, blocks: number): Tile[][] => {
@@ -75,17 +75,17 @@ let updateFOV = (_game: GameMap): GameMap => {
 }
 
 export const move = (_game: GameMap, x: number, y: number): GameMap => {
-    // awful
-    let game: GameMap = JSON.parse(JSON.stringify(_game))
-    let nx = game.playerPos[0] + x
-    let ny = game.playerPos[1] + y
-    if (nx >= game.mapBounds[0][0] && nx < game.mapBounds[1][0] && ny >= game.mapBounds[0][1] && ny < game.mapBounds[1][1]) {
-      game.playerPos = [nx, ny]
-      return updateFOV(game)
+    if (_game.dead) return _game
+    let nx = _game.playerPos[0] + x
+    let ny = _game.playerPos[1] + y
+    if (nx >= _game.mapBounds[0][0] && nx < _game.mapBounds[1][0] && ny >= _game.mapBounds[0][1] && ny < _game.mapBounds[1][1]) {        
+        // awful
+        let game: GameMap = JSON.parse(JSON.stringify(_game))
+        game.playerPos = [nx, ny]
+        return kittenStep(updateFOV(game))
     }
     return _game
 }
-
 
 export const genRandomMap = (size: number, playerPos: [number, number], seed?: string): GameMap => {
   let noise = new Noise(seed)
@@ -107,12 +107,65 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
 
   let stats = {
       health: 100,
-      shield: 30,
+      shield: 0,
       lvl: 0,
-      xp_curr: 99,
-      xp_needed: 101,
+      xp_curr: 0,
+      xp_needed: 100,
   }
-  let game = { map: map, mapBounds: [[0,0], [size,size]], playerPos: playerPos, stats: stats }
+ 
+  let player = playerPos
+  if (map[player[0], player[1]].tileId === 'water') { 
+      for (let ox=0; ox<size; ox++) {
+          let x = player[0] + ox
+          if (x < size) {
+              if (map[x][player[1]].tileId !== 'water') {
+                  player = [x, player[1]]
+              }
+          }
+      }
+  }
+  let game = {
+    map: map,
+    mapBounds: [[0,0], [size,size]],
+    playerPos: player,
+    stats: stats,
+    hurt: false,
+    dead: false
+  }
 
   return updateFOV(game)
+}
+
+const hurt = (_game: GameMap, c: number) => {
+    _game.hurt = true
+    _game.stats.health -= c
+    if (_game.stats.health <= 0) {
+        _game.dead = true
+        _game.stats.health = 0
+    }
+}
+
+const kittenStep = (_game: GameMap): GameMap => {
+    // awful
+    let game: GameMap = JSON.parse(JSON.stringify(_game))
+    
+    if (game.map[game.playerPos[0]][game.playerPos[1]].tileId === 'water') {
+        hurt(game, 5)
+    }
+    return game
+}
+
+export const tickStep = (_game: GameMap): GameMap => {
+    // awful
+    let game: GameMap = JSON.parse(JSON.stringify(_game))
+    
+    game.hurt = false
+    
+    if (game.map[game.playerPos[0]][game.playerPos[1]].tileId === 'water') {
+        // we're drowning!
+        hurt(game, 10)
+    }
+    
+    
+    return game
 }

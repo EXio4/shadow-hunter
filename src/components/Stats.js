@@ -7,7 +7,7 @@ import type { PlayerStats } from '../logic/Game.js'
 export const Stats = (props: { stats: PlayerStats }) => {
     
     let hpcss = {
-        'position': 'absolute',
+        'position': 'fixed',
         'top': '4vmin',
         'left': '3vmin',
         'height': '4vmin',
@@ -22,7 +22,7 @@ export const Stats = (props: { stats: PlayerStats }) => {
     }
     
     let shieldcss = {
-        'position': 'absolute',
+        'position': 'fixed',
         'top': '9vmin',
         'left': '3vmin',
         'height': '4vmin',
@@ -38,7 +38,7 @@ export const Stats = (props: { stats: PlayerStats }) => {
     }
     
     let xpcss = {
-        'position': 'absolute',
+        'position': 'fixed',
         'top': '4vmin',
         'right': '3vmin',
         'height': '4vmin',

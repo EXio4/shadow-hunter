@@ -5,6 +5,7 @@
   "dependencies": {
     "arrow-keys-react": "^1.0.6",
     "react": "^16.4.1",
+    "react-body-classname": "^1.2.0",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",

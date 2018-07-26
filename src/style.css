@@ -1,6 +1,11 @@
 body {
+  overflow: none;
   background: #333;
 }
 #root {
-  width: 100%;
+  position: absolute;
+  left: 0vw;
+  top: 0vh;
+  width: 100vw;
+  height: 100vh;
 }
