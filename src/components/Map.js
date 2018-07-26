@@ -88,7 +88,7 @@ export class Map extends React.Component<MapProps, MapState> {
             row.map((tile, y) => (
                 <Tile {...tile} pos={[x,y]} key={x * 1024 + y}>
                 {
-                    (x === blocks && y === blocks) ? <img style={player} className="idle" /> : null
+                    (x === blocks && y === blocks) ? <div style={player} className="idle" /> : null
                 }
                 </Tile>
             ))
