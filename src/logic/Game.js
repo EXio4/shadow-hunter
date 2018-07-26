@@ -84,11 +84,11 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
   for (let x=0; x<size; x++) {
     let row: Tile[] = []
     for (let y=0; y<size; y++) {
-      let d = 14 * (noise.noise2D(x/5, y/5) + 1)
+      let d = 14 * (noise.noise2D(x/8, y/9) + 1)
       let type = "void"
       if      (d <= 6)   { type = "water"; d = 5 }
       else if (d <= 10)  { type = "sand" ; }
-      else if (d <= 18)  { type = "grass"; }
+      else if (d <= 20.7)  { type = "grass"; }
       else               { type = "stone"; }
       d -= 7
       row.push( { tileId: type, height: Math.floor(d), visible: false } )
