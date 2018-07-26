@@ -28,6 +28,6 @@ export const randomPowerup = (): Powerup => {
     } else if (coeff < 0.8) {
         return { type: 'shield', shield: Math.floor(25 * coeff) }
     } else {
-        return { type: 'health', hp: 5 +  10 * (coeff - 0.8) }
+        return { type: 'health', hp: 10 +  30 * (coeff - 0.8) }
     }
 }

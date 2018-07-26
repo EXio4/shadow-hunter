@@ -138,9 +138,16 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
   return updateFOV(game)
 }
 
-const hurt = (_game: GameMap, c: number) => {
+const hurt = (_game: GameMap, c: number, shield_rate: number = 1) => {
     _game.hurt = true
-    _game.stats.health -= c
+    let sh = Math.round(c * shield_rate)
+    let rm = Math.round(c * (1 - shield_rate))
+    _game.stats.shield -= sh
+    _game.stats.health -= rm
+    if (_game.stats.shield < 0) {
+        _game.stats.health -= Math.abs(_game.stats.shield)
+        _game.stats.shield = 0
+    }
     if (_game.stats.health <= 0) {
         _game.dead = true
         _game.stats.health = 0

@@ -12,13 +12,29 @@ export const Stats = (props: { stats: PlayerStats }) => {
         'left': '3vmin',
         'height': '4vmin',
         'width': '40vmin',
+        'zIndex': 11,
         'border': '0.4vmin solid #7d4',
         'filter': 'drop-shadow(0x, -1vmin, 1vmin) blur(4px)',
     }
     let actualHP = {
-        'height': '100%',
+        'position': 'fixed',
+        'top': '4.4vmin',
+        'left': '3vmin',
+        'height': '4.2vmin',
+        'zIndex': 9,
         'background': 'linear-gradient(to right, red 0vmin, yellow 17vmin, green 32vmin, violet 36vmin)',
         'width': 'calc(0.32vmin * ' + props.stats.health + ')',
+        'filter': 'drop-shadow(0x, -1vmin, 1vmin) blur(4px)',
+    }
+    let b100 = {
+        'position': 'fixed',
+        'zIndex': 10,
+        'top': '4.4vmin',
+        'left': '3vmin',
+        'height': '4.2vmin',
+        'width': '32vmin',
+        'border-right': '0.4vmin solid #7d4',
+        'filter': 'drop-shadow(0x, -1vmin, 1vmin) blur(4px)',
     }
     
     let shieldcss = {
@@ -54,9 +70,9 @@ export const Stats = (props: { stats: PlayerStats }) => {
     }
     
     return (<React.Fragment>
-        <div style={hpcss}>
-            <div style={actualHP} className="bar" />
-        </div>
+        <div style={actualHP} className="bar" />
+        <div style={hpcss} />
+        <div style={b100} />
         <div style={shieldcss}>
             <div style={actualShield} className="bar" />
         </div>
