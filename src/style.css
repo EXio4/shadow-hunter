@@ -4,6 +4,7 @@ html, body {
   background: #333;
   width: 100vw;
   height: 100vh;
+  font-family: 'Do Hyeon', sans-serif;
 }
 #root {
   overflow: none;

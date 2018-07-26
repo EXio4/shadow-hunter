@@ -44,6 +44,7 @@ export const Stats = (props: { stats: PlayerStats }) => {
         'height': '4vmin',
         'width': '40vmin',
         'border': '0.4vmin solid #f3b',
+        'color': '#fff',
         'filter': 'drop-shadow(0x, -1vmin, 1vmin) blur(4px)',
     }
     let actualXP = {
@@ -60,7 +61,8 @@ export const Stats = (props: { stats: PlayerStats }) => {
             <div style={actualShield} className="bar" />
         </div>
         <div style={xpcss}>
-            <div style={actualXP} className="bar" />
+            <div style={actualXP} className="bar"></div>
+            {props.stats.xp_curr} {'/'} {props.stats.xp_needed} (lvl: {props.stats.lvl})
         </div>
     </React.Fragment>)
 }

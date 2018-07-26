@@ -20,6 +20,12 @@ const fromPowerup = (powerup?: Powerup): Node => {
     if (powerup.type === 'health') {
         return (<div className="gem pink-2" />)
     }
+    if (powerup.type === 'shield') {
+        return (<div className="gem pink-6" />)
+    }
+    if (powerup.type == 'xp') {
+        return (<div className="gem green-1" />)
+    }
 }
 
 const obtainColor = ({ tileId, visible }: TileProps) => {

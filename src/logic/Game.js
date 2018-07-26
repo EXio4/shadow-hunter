@@ -155,6 +155,22 @@ const give = (_game: GameMap, c: number) => {
     }
 }
 
+const give_shield = (_game: GameMap, c: number) => {
+    _game.stats.shield += c
+    if (_game.stats.shield >= 100) {
+        _game.stats.shield = 100
+    }
+}
+
+const increase_xp = (_game: GameMap, c: number) => {
+    _game.stats.xp_curr += c
+    while (_game.stats.xp_curr >= _game.stats.xp_needed) {
+        _game.stats.xp_curr -= _game.stats.xp_needed
+        _game.stats.lvl++
+        _game.stats.xp_needed = 100 * _game.stats.lvl
+    }
+}
+
 const kittenStep = (_game: GameMap): GameMap => {
     // awful
     let game: GameMap = JSON.parse(JSON.stringify(_game))
@@ -167,6 +183,12 @@ const kittenStep = (_game: GameMap): GameMap => {
         const pup: Powerup = game.map[game.playerPos[0]][game.playerPos[1]].powerup;
         if (pup.type === 'health') {
             give(game, pup.hp)
+        }
+        if (pup.type === 'shield') {
+            give_shield(game, pup.shield)
+        }
+        if (pup.type === 'xp') {
+            increase_xp(game, pup.xp)
         }
         game.map[game.playerPos[0]][game.playerPos[1]].powerup = undefined
     }
@@ -182,7 +204,7 @@ export const tickStep = (_game: GameMap): GameMap => {
                Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]))
     
     for (let i=0; i<area; i += 512) {
-        if (Math.random() < 0.1) {
+        if (Math.random() < 1/(10*i)) {
             let x = Math.floor(Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0]) * Math.random()))
             let y = Math.floor(Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]) * Math.random()))
             if (game.map[x][y].tileId !== 'water' && game.playerPos[0] !== x && game.playerPos[1] !== y) {
