@@ -54,15 +54,12 @@ const getStyle = (props: TileProps) => {
     'transform': 'translate3d(' + (props.pos[0] * 32 - height) + 'px, ' + (props.pos[1] * 32 - height) + 'px, 0px) ',
     filter: undefined
   }
-  if (props.important === true) {
-    style['filter'] = 'contrast(100%)'
-  }
   return style
 }
 
 
 export const Tile = (props: TileProps) => (
-  <div style={getStyle(props)}>
+  <div className={props.important ? 'glow' : 'none'} style={getStyle(props)}>
     {props.children}
   </div>
 )

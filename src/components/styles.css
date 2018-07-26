@@ -12,3 +12,22 @@
   from { background-position:0px 0px; }
   to { background-position:132px 0px; }
 }
+
+
+.glow {
+  animation: glowing-effect;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes glowing-effect {
+    0% {
+        filter: contrast(100%);
+    }
+    80% {
+        filter: contrast(150%);
+    }
+    100% {
+        filter: contrast(100%);
+    }
+}

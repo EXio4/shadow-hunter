@@ -86,7 +86,7 @@ export class Map extends React.Component<MapProps, MapState> {
         const map = (<div tabIndex="1" style={style(blocks)}>
             {around.map((row, x) =>  
             row.map((tile, y) => (
-                <Tile {...tile} pos={[x,y]} key={x * 1024 + y}>
+                <Tile {...tile} pos={[x,y]} key={x * 1024 + y} important={x === blocks && y === blocks}>
                 {
                     (x === blocks && y === blocks) ? <div style={player} className="idle" /> : null
                 }
