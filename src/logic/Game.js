@@ -184,7 +184,7 @@ export const tickStep = (_game: GameMap): GameMap => {
     for (let i=0; i<area; i += 512) {
         if (Math.random() < 0.1) {
             let x = Math.floor(Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0]) * Math.random()))
-            let y = Math.floor(Math.abs((_game.mapBounds[1][1] - _game.mapBounds[1][1]) * Math.random()))
+            let y = Math.floor(Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]) * Math.random()))
             if (game.map[x][y].tileId !== 'water' && game.playerPos[0] !== x && game.playerPos[1] !== y) {
                 game.map[x][y].powerup = randomPowerup()
             }
