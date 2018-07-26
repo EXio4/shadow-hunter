@@ -33,12 +33,16 @@ type MapState = {
 }
 
 let flexbox = {
+    'overflow': 'hidden',
+    'height': '100vh',
+    'width': '100vw',
 }
 
 let style = (blocks: number) => ({
   'top': '1vmin',
   'left': 'calc(( 100% -  ' +  String(32 * (blocks*2+1)) + 'px' + ' ) / 2)',
   'position': 'absolute',
+  'overflow': 'hidden',
   'height': String(32 * (blocks*2+1)) + 'px',
   'width': String(32 * (blocks*2+1)) + 'px',
   'backgroundColor': '#333',

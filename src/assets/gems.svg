@@ -9,7 +9,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="Gem_Collection.svg"
+   sodipodi:docname="gems.svg"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    version="1.1"
    id="svg2"
@@ -31,8 +31,8 @@
      showgrid="false"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="526.01688"
-     inkscape:cx="215.18973"
+     inkscape:cy="641.11638"
+     inkscape:cx="-114.81027"
      inkscape:zoom="0.35"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -60,13 +60,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-28.36216)">
-    <rect
-       style="opacity:0.98000004;fill:#a7ac93;fill-opacity:1;stroke:#fff6d5;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5096"
-       width="1182.8572"
-       height="1157.1428"
-       x="-77.14286"
-       y="-36.20927" />
     <g
        id="blue_5">
       <g

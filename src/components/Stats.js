@@ -17,8 +17,8 @@ export const Stats = (props: { stats: PlayerStats }) => {
     }
     let actualHP = {
         'height': '100%',
-        'background': 'linear-gradient(to right, red 0vmin, yellow 17vmin, green 35vmin, violet 40vmin)',
-        'width': 'calc(0.35vmin * ' + props.stats.health + ')',
+        'background': 'linear-gradient(to right, red 0vmin, yellow 17vmin, green 32vmin, violet 36vmin)',
+        'width': 'calc(0.32vmin * ' + props.stats.health + ')',
     }
     
     let shieldcss = {
@@ -54,13 +54,13 @@ export const Stats = (props: { stats: PlayerStats }) => {
     
     return (<React.Fragment>
         <div style={hpcss}>
-            <div style={actualHP} />
+            <div style={actualHP} className="bar" />
         </div>
         <div style={shieldcss}>
-            <div style={actualShield} />
+            <div style={actualShield} className="bar" />
         </div>
         <div style={xpcss}>
-            <div style={actualXP} />
+            <div style={actualXP} className="bar" />
         </div>
     </React.Fragment>)
 }

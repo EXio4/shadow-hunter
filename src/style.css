@@ -1,11 +1,10 @@
-body {
+html, body {
+  margin: 0px;
   overflow: none;
   background: #333;
-}
-#root {
-  position: absolute;
-  left: 0vw;
-  top: 0vh;
   width: 100vw;
   height: 100vh;
+}
+#root {
+  overflow: none;
 }

@@ -1,6 +1,7 @@
 // @flow
 
-import type { Tile, TileID } from './Tiles'
+import type { Tile, TileID, Powerup } from './Tiles'
+import { randomPowerup } from './Tiles'
 import Noise from 'simplex-noise'
 
 export type Vec2 = [number, number]
@@ -95,10 +96,10 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
     for (let y=0; y<size; y++) {
       let d = 14 * (noise.noise2D(x/8, y/9) + 1)
       let type = "void"
-      if      (d <= 6)   { type = "water"; d = 5 }
-      else if (d <= 10)  { type = "sand" ; }
-      else if (d <= 20.7)  { type = "grass"; }
-      else               { type = "stone"; }
+      if      (d <= 6)    { type = "water"; d = 5 }
+      else if (d <= 10)   { type = "sand" ; }
+      else if (d <= 20.7) { type = "grass"; }
+      else                { type = "stone"; }
       d -= 7
       row.push( { tileId: type, height: Math.floor(d), visible: false } )
     }
@@ -146,6 +147,14 @@ const hurt = (_game: GameMap, c: number) => {
     }
 }
 
+const give = (_game: GameMap, c: number) => {
+    _game.hurt = false
+    _game.stats.health += c
+    if (_game.stats.health >= 125) {
+        _game.stats.health = 125
+    }
+}
+
 const kittenStep = (_game: GameMap): GameMap => {
     // awful
     let game: GameMap = JSON.parse(JSON.stringify(_game))
@@ -153,12 +162,38 @@ const kittenStep = (_game: GameMap): GameMap => {
     if (game.map[game.playerPos[0]][game.playerPos[1]].tileId === 'water') {
         hurt(game, 5)
     }
+    
+    if (game.map[game.playerPos[0]][game.playerPos[1]].powerup) {
+        const pup: Powerup = game.map[game.playerPos[0]][game.playerPos[1]].powerup;
+        if (pup.type === 'health') {
+            give(game, pup.hp)
+        }
+        game.map[game.playerPos[0]][game.playerPos[1]].powerup = undefined
+    }
+    
     return game
 }
 
 export const tickStep = (_game: GameMap): GameMap => {
     // awful
     let game: GameMap = JSON.parse(JSON.stringify(_game))
+    
+    let area = Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0])) *
+               Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]))
+    
+    for (let i=0; i<area; i += 512) {
+        if (Math.random() < 0.1) {
+            let x = Math.floor(Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0]) * Math.random()))
+            let y = Math.floor(Math.abs((_game.mapBounds[1][1] - _game.mapBounds[1][1]) * Math.random()))
+            if (game.map[x][y].tileId !== 'water' && game.playerPos[0] !== x && game.playerPos[1] !== y) {
+                game.map[x][y].powerup = randomPowerup()
+            }
+        }
+    }
+    
+    if (game.stats.health > 100) {
+        game.stats.health -= 1
+    } 
     
     game.hurt = false
     

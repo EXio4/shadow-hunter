@@ -3,15 +3,23 @@
 import React from 'react'
 import type { Node } from 'react'
 
-import type { TileID } from '../logic/Tiles'
+import type { TileID, Powerup } from '../logic/Tiles'
 
 export type TileProps = {
   children?: Node,
   tileId: TileID,
   important?: boolean,
+  powerup?: Powerup,
   height: number,
   visible: boolean,
   pos: [number, number]
+}
+
+const fromPowerup = (powerup?: Powerup): Node => {
+    if (powerup == null) return null
+    if (powerup.type === 'health') {
+        return (<div className="gem pink-2" />)
+    }
 }
 
 const obtainColor = ({ tileId, visible }: TileProps) => {
@@ -59,6 +67,7 @@ const getStyle = (props: TileProps) => {
 
 export const Tile = (props: TileProps) => (
   <div className={props.important ? 'glow' : 'none'} style={getStyle(props)}>
+    {props.visible ? fromPowerup(props.powerup) : null}
     {props.children}
   </div>
 )

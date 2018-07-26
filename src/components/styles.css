@@ -13,6 +13,9 @@
   to { background-position:132px 0px; }
 }
 
+.bar {
+  transition: width 1.1s linear;
+}
 
 .glow {
   animation: glowing-effect;
@@ -66,4 +69,106 @@
     100% {
         filter: grayscale(100%);
     }
+}
+
+
+.gem {
+    transform: rotateZ(-45deg) scale3d(1, 2, 1) translate3d(0, -10px, 0px)
+}
+
+.green-1 {
+	background: url('../assets/gems.svg') no-repeat 4.767% 3.778%;
+	background-size: 256px 256px;
+	width: 20px;
+	height: 31px;
+}
+.green-2 {
+  	background: url('../assets/gems.svg') no-repeat 17.276% 4.29%;
+	background-size: 256px 256px;
+	width: 30px;
+	height: 29px;
+}
+
+.green-3 {
+	background: url('../assets/gems.svg') no-repeat 33.297% 4.286%;
+	background-size: 256px 256px;
+	width: 25px;
+	height: 28px;
+}
+
+.green-4 {
+	background: url('../assets/gems.svg') no-repeat 48.463% 4.286%;
+	background-size: 256px 256px;
+	width: 12px;
+	height: 28px;
+}
+
+.green-5 {
+	background: url('../assets/gems.svg') no-repeat 62.189% 4.286%;
+	background-size: 256px 256px;
+	width: 25px;
+	height: 28px;
+}
+
+.green-6 {
+	background: url('../assets/gems.svg') no-repeat 77.34% 4.386%;
+	background-size: 512px 512px;
+	width: 21px;
+	height: 28px;
+}
+
+.green-7 {
+	background: url('../assets/gems.svg') no-repeat 94.978% 4.585%;
+	background-size: 256px 256px;
+	width: 27px;
+	height: 27px;
+}
+
+.pink-1 {
+  	background: url('../assets/gems.svg') no-repeat 4.767% 41%;
+	background-size: 256px 256px;
+	width: 20px;
+	height: 31px;
+}
+
+.pink-2 {
+	background: url('../assets/gems.svg') no-repeat 17.94% 41.034%;
+	background-size: 256px 256px;
+	width: 30px;
+	height: 29px;
+}
+
+.pink-3 {
+	background: url('../assets/gems.svg') no-repeat 33.297% 41.099%;
+	background-size: 256px 256px;
+	width: 25px;
+	height: 28.5px;
+}
+
+.pink-4 {
+	background: url('../assets/gems.svg') no-repeat 48.463% 41.054%;
+	background-size: 256px 256px;
+	width: 12px;
+	height: 28px;
+}
+
+.pink-5 {
+	background: url('../assets/gems.svg') no-repeat 62.242% 41.054%;
+	background-size: 256px 256px;
+	width: 26px;
+	height: 28px;
+}
+
+.pink-6 {
+	background: url('../assets/gems.svg') no-repeat 77.34% 41.054%;
+	background-size: 256px 256px;
+	width: 21px;
+	height: 28px;
+}
+
+.pink-7 {
+	background: url('../assets/gems.svg') no-repeat 94.978% 41.093%;
+	background-size: 256px 256px;
+	width: 27px;
+	height: 27px;
 }
