@@ -8,11 +8,11 @@ import Menu from './Menu'
 import type { GameProps, GState } from '../types'
 
 export const Game = (props: GameProps) => {
-    let s: GState = props.st
-    if (s.type === 'menu') {
-        return <Menu {...s.st} {...s.acts} />
-    } else if (s.type === 'map') {
-        return <GMap {...s.st} {...s.acts} />
+    let st: GState = props.st
+    if (st.type === 'menu') {
+        return <Menu {...st} {...props.acts} />
+    } else if (st.type === 'map') {
+        return <GMap {...st} {...props.acts} />
     }
 }
 

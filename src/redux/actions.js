@@ -2,7 +2,7 @@
 
 
 // menu actions
-export type StartAction = { type: 'start-game', seed?: string, size: number } 
+export type StartAction = { type: 'start-game', size: number, seed?: string } 
 
 export type MenuActions = StartAction
 
@@ -17,11 +17,11 @@ export type Action = MenuActions
                    | MapActions
 
 
-export const Move: (number, number) => MoveAction =
+export const Move  =
         (x: number, y:number): MoveAction => ({ type: 'move', x: x, y: y })
-export const Tick: () => TickAction = 
+export const Tick = 
        (): TickAction => ({ type: 'tick' })
        
-export const StartGame: (number, string) => StartAction =
+export const StartGame  =
         (size: number, seed?: string): StartAction =>
             ({ type: 'start-game', size: size, seed: seed })

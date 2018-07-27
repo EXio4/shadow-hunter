@@ -6,20 +6,20 @@ import { connect } from 'react-redux'
 
 import { Move, Tick, StartGame } from './redux/actions'
 import { store } from './redux/redux'
-
+import type { GState, PActions } from './types'
 import Game from './components/Game'
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: GState, ownProps): { st: GState } => ({
   st: state
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps = (dispatch, ownProps) => ({
     acts: { 
-        move: Move,
-        tick: Tick,
-        start: StartGame,
+        move: (x: number, y: number) => dispatch(Move(x,y)),
+        tick: () => dispatch(Tick()),
+        start: (size: number, seed?: string) => dispatch(StartGame(size, seed)),
     } 
-};
+});
 
 const GameContainer = connect(  
   mapStateToProps,
