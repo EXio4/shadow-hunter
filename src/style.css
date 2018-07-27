@@ -9,3 +9,11 @@ html, body {
 #root {
   overflow: none;
 }
+
+.version {
+    position: fixed;
+    left: 1vmin;
+    bottom: 1vmin;
+    font-size: 2vmin;
+    color: #999;
+}
