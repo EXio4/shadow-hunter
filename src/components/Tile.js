@@ -23,7 +23,7 @@ const fromPowerup = (powerup?: Powerup): Node => {
     if (powerup.type === 'shield') {
         return (<div className="gem pink-6" />)
     }
-    if (powerup.type == 'xp') {
+    if (powerup.type === 'xp') {
         return (<div className="gem green-1" />)
     }
 }

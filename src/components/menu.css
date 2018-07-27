@@ -1,0 +1,51 @@
+
+
+.menu {
+    position: fixed;
+    width: 60vmin;
+    height: 60vmin;
+    top: 25vmin;
+    left: calc( ( 100% - 60vmin ) / 2);
+    border: 0.4vmin solid #ccc;
+    border-radius: 2vmin 2vmin;
+    animation: menu-glow;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    color: #fff;
+}
+
+@keyframes menu-glow {
+    0% {
+        filter: drop-shadow(0vmin 0vmin 2vmin purple);  
+    }
+    50% {
+        filter: drop-shadow(0vmin 0vmin 2vmin blue);
+    }
+    100% {
+        filter: drop-shadow(0vmin 0vmin 2vmin purple);  
+    }
+}
+
+
+.menu-header {
+    position: relative;
+    top: 8vmin;
+    text-align: center;
+    font-size: 10vmin;
+    font-family: 'Megrim', cursive;
+}
+
+.menu-start {
+    
+    position: relative;
+    left: calc( ( 100% - 40vmin ) / 2);
+    text-align: center;
+    top: 20vmin;
+    font-size: 4.5vmin;
+    height: 5vmin;
+    width: 40vmin;
+    background: rgba(255, 0, 255, 0.5);
+    filter: drop-shadow(0vmin 0vmin 4vmin green);
+    border: 0.4vmin solid #ccc;
+    border-radius: 1.5vmin 1.5vmin;
+}

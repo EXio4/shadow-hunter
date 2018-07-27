@@ -2,11 +2,11 @@
 
 import { createStore } from 'redux'
 
-import type { GameMap } from '../logic/Game'
+import type { GState } from '../types.js'
 
 import reducers from './reducers'
 
-export function configureStore(map?: GameMap) {
+export function configureStore(map?: GState) {
   return createStore(reducers, map)
 }
 

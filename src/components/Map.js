@@ -9,18 +9,13 @@ import Stats from './Stats'
 import Controls from './Controls'
 import Player from './Player'
 
-import type { GameMap } from '../logic/Game'
 import { getNearby } from '../logic/Game'
 import type { Action } from '../redux/actions'
 
 import idle_cat from '../assets/idle_cat.png'
 import './styles.css'
 
-export type MapProps = {
-  map: GameMap,
-  move: (number, number) => Action,
-  tick: () => Action,
-}
+import type { MapProps } from '../types.js'
 
 type WindowSize = {
     width: number,
@@ -40,7 +35,7 @@ let flexbox = {
 
 let style = (blocks: number) => ({
   'top': '1vmin',
-  'left': 'calc(( 100% -  ' +  String(32 * (blocks*2+1)) + 'px' + ' ) / 2)',
+  'left': 'calc(( 100% -  ' +  String(32 * (blocks*2+1)) + 'px ) / 2)',
   'position': 'absolute',
   'overflow': 'hidden',
   'height': String(32 * (blocks*2+1)) + 'px',

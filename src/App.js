@@ -4,26 +4,29 @@ import { Provider } from 'react-redux';
 
 import { connect } from 'react-redux'
 
-import { Move, Tick } from './redux/actions'
+import { Move, Tick, StartGame } from './redux/actions'
 import { store } from './redux/redux'
 
-import Map from './components/Map'
+import Game from './components/Game'
 
-const mapStateToProps = (state, ownProps) => ({  
-  map: state,
+const mapStateToProps = (state, ownProps) => ({
+  st: state
 });
 
-const mapDispatchToProps = { 
-  move: Move,
-  tick: Tick,
+const mapDispatchToProps = {
+    acts: { 
+        move: Move,
+        tick: Tick,
+        start: StartGame,
+    } 
 };
 
-const MapContainer = connect(  
+const GameContainer = connect(  
   mapStateToProps,
   mapDispatchToProps
-)(Map);
+)(Game);
 
 export const App = () => (<Provider store={store}>
-    <MapContainer />
+    <GameContainer />
   </Provider>)
 export default App;

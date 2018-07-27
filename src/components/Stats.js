@@ -29,7 +29,7 @@ export const Stats = (props: { stats: PlayerStats }) => {
     let b100 = {
         'position': 'fixed',
         'zIndex': 10,
-        'top': '4.4vmin',
+        'top': '4.3vmin',
         'left': '3vmin',
         'height': '4.2vmin',
         'width': '32vmin',
