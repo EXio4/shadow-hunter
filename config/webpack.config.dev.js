@@ -101,11 +101,6 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
-      new webpack.DefinePlugin({
-        'VERSION': JSON.stringify(gitRevisionPlugin.version()),
-        'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
-        'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
-      }),
     ],
   },
   module: {
@@ -237,6 +232,11 @@ module.exports = {
     new webpack.DefinePlugin(env.stringified),
     // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'VERSION': JSON.stringify(gitRevisionPlugin.version()),
+      'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
+      'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
+    }),
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebookincubator/create-react-app/issues/240

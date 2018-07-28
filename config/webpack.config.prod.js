@@ -106,12 +106,6 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
-      
-      new webpack.DefinePlugin({
-        'VERSION': JSON.stringify(gitRevisionPlugin.version()),
-        'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
-        'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
-      }),
     ],
   },
   module: {
@@ -266,6 +260,11 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
+    }),
+    new webpack.DefinePlugin({
+        'VERSION': JSON.stringify(gitRevisionPlugin.version()),
+        'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
+        'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
