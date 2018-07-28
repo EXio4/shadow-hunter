@@ -9,7 +9,7 @@ let player = {
     'imageRendering': 'pixelated',
 }
 
-export const Player = (props: GameMap) => {
+export const Player = (props: { map: GameMap }) => {
   return (<div style={player} className="idle" />)
 }
 

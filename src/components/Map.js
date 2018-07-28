@@ -102,7 +102,7 @@ export class Map extends React.Component<MapProps, MapState> {
             row.map((tile, y) => (
                 <Tile {...tile} pos={[x,y]} key={x * 1024 + y} important={x === blocks && y === blocks}>
                 {
-                    (x === blocks && y === blocks) ? <Player {...this.props.map} /> : null
+                    (x === blocks && y === blocks) ? <Player map={this.props.map} /> : null
                 }
                 </Tile>
             ))

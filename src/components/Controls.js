@@ -47,17 +47,22 @@ let right = {...button,
     'transform': 'translate(20vmin, 10vmin)'
 }
 
-const Controls = (props: Props) => {
-    let e_up    = () => props.move( 0, -1)
-    let e_down  = () => props.move( 0,  1)
-    let e_left  = () => props.move(-1,  0)
-    let e_right = () => props.move( 1,  0)
-    return (<div style={style}>
-        <img alt="UP" style={up}    onClick={e_up}    onTouchdown={e_up}    src={i_up}   />
-        <img alt="DW" style={down}  onClick={e_down}  onTouchdown={e_down}  src={i_down} />
-        <img alt="LF" style={left}  onClick={e_left}  onTouchdown={e_left}  src={i_left} />
-        <img alt="RT" style={right} onClick={e_right} onTouchdown={e_right} src={i_right}/>
-     </div>
-    )
+class Controls extends React.Component<Props> {
+    
+    e_up    = () => this.props.move( 0, -1)
+    e_down  = () => this.props.move( 0,  1)
+    e_left  = () => this.props.move(-1,  0)
+    e_right = () => this.props.move( 1,  0)
+    
+    render() {
+
+        return (<div style={style}>
+            <img alt="UP" style={up}    onClick={this.e_up}    onTouchdown={this.e_up}    src={i_up}   />
+            <img alt="DW" style={down}  onClick={this.e_down}  onTouchdown={this.e_down}  src={i_down} />
+            <img alt="LF" style={left}  onClick={this.e_left}  onTouchdown={this.e_left}  src={i_left} />
+            <img alt="RT" style={right} onClick={this.e_right} onTouchdown={this.e_right} src={i_right}/>
+        </div>)
+    }
 }
+
 export default Controls
