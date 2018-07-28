@@ -57,14 +57,14 @@ let updateFOV = (_game: GameMap): GameMap => {
   // awful
   let game: GameMap = JSON.parse(JSON.stringify(_game))
 
-  let blocks = 4
+  let blocks = 6
   for (let ox = -blocks; ox <= blocks; ox++) {
     let x = game.playerPos[0] + ox
     let row: Tile[] = []
     for (let oy = -blocks; oy <= blocks; oy++) {
       let y = game.playerPos[1] + oy
       if (x >= game.mapBounds[0][0] && y >= game.mapBounds[0][1] && x < game.mapBounds[1][0] && y < game.mapBounds[1][1]) {
-          if (ox**2 + oy**2 <= 16) {
+          if (ox**2 + oy**2 <= 27) {
             game.map[x][y].visible = true
           }
       }
@@ -88,20 +88,87 @@ export const move = (_game: GameMap, x: number, y: number): GameMap => {
     return _game
 }
 
+type Seeds = {
+    [string]: Noie
+}
+
+const genTile = (seeds: Seeds, x: number, y: number): [TileId, number] => {
+    let noise = 11 * (seeds['noise'].noise2D(x/8, y/9) + 1) - 2 // -2 - 20, should help with depth/height
+    let humid = 50 * (seeds['humid'].noise2D(x/96, y/96) + 1) // 0% - 100% humidity
+    let temp  = 30 * (seeds['temp'].noise2D(x/128, y/128) + 0.5) // -15 to 45, 0 defines water freezing
+    /*
+     * The idea behind the algorithm is that it will pick for:
+     * low humidity implies less water/desert
+     * high humidity implies no fire
+     * 
+     * temps define if there's snow/ice (<= 0 implies below freezing)
+     * and if they're too high it becomes a volcanic biome
+     * 
+     */
+    
+    
+    if (humid <= 20) { 
+        // higher due to low humidity, to avoid water
+        noise += 2 * Math.sin((20-humid) / (Math.PI/40))
+    }
+    
+    
+    let type = "void"
+
+    if (temp <= 0) {
+        // icy 
+        if (noise <= 6) {
+            type = "ice"
+            noise = 5
+        } else {
+            type = "snow"
+        }
+    } else if (temp <= 40) {
+        // normal
+        if (noise <= 6) {
+            if (temp <= 2.5) {
+                type = "ice"
+            } else if (temp <= 38) {
+                type = "water"
+            } else {
+                type = "volcanic"
+            }
+            noise = 5
+        } else if (noise <= 10) {
+            type = "sand"
+        } else if (noise <= 18) {
+            type = "grass"
+        } else {
+            type = "stone"
+        }
+    } else {
+        // hell-ish
+        if (noise <= 6) {
+            type = "lava"
+            noise = 5
+        } else {
+            type = "volcanic"
+        }
+    }
+    
+    return [type, Math.round(noise)]
+ 
+}
+
 export const genRandomMap = (size: number, playerPos: [number, number], seed?: string): GameMap => {
-  let noise = new Noise(seed)
+  if (!seed) seed = String(Math.random()*1000)
+  let seeds = {
+      temp:  new Noise("temps" + seed),
+      noise: new Noise("noise" + seed),
+      humid: new Noise("humid" + seed),
+      gen:   new Noise("gen" + seed)
+  }
   let map: Tile[][] = []
   for (let x=0; x<size; x++) {
     let row: Tile[] = []
     for (let y=0; y<size; y++) {
-      let d = 14 * (noise.noise2D(x/8, y/9) + 1)
-      let type = "void"
-      if      (d <= 6)    { type = "water"; d = 5 }
-      else if (d <= 10)   { type = "sand" ; }
-      else if (d <= 20.7) { type = "grass"; }
-      else                { type = "stone"; }
-      d -= 7
-      row.push( { tileId: type, height: Math.floor(d), visible: false } )
+        let type = genTile(seeds, x,y)
+        row.push( { tileId: type[0], height: Math.floor(type[1]), visible: false } )
     }
     map.push(row)
   }
@@ -115,11 +182,11 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
   }
  
   let player = playerPos
-  if (map[player[0]][player[1]].tileId === 'water') { 
+  if (map[player[0]][player[1]].tileId === 'water' || map[player[0]][player[1]].tileId === 'lava') { 
       for (let ox=0; ox<size; ox++) {
           let x = player[0] + ox
           if (x < size) {
-              if (map[x][player[1]].tileId !== 'water') {
+              if (map[x][player[1]].tileId !== 'water' && map[x][player[1]].tileId !== 'lava') {
                   player = [x, player[1]]
                   break
               }
@@ -182,9 +249,14 @@ const kittenStep = (_game: GameMap): GameMap => {
     // awful
     let game: GameMap = JSON.parse(JSON.stringify(_game))
     
-    if (game.map[game.playerPos[0]][game.playerPos[1]].tileId === 'water') {
+    const tile = game.map[game.playerPos[0]][game.playerPos[1]].tileId
+    if (tile === 'water') {
         hurt(game, 5)
     }
+    if (tile === 'lava') {
+        hurt(game, 10, 0.75)
+    }
+    
     
     if (game.map[game.playerPos[0]][game.playerPos[1]].powerup) {
         const pup: Powerup = game.map[game.playerPos[0]][game.playerPos[1]].powerup;
@@ -210,7 +282,7 @@ export const tickStep = (_game: GameMap): GameMap => {
     let area = Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0])) *
                Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]))
     
-    for (let i=0; i<area; i += 512) {
+    for (let i=0; i<area; i += 2048) {
         if (Math.random() < 1/(10*i)) {
             let x = Math.floor(Math.abs((_game.mapBounds[0][0] - _game.mapBounds[1][0]) * Math.random()))
             let y = Math.floor(Math.abs((_game.mapBounds[0][1] - _game.mapBounds[1][1]) * Math.random()))
@@ -225,10 +297,13 @@ export const tickStep = (_game: GameMap): GameMap => {
     } 
     
     game.hurt = false
-    
-    if (game.map[game.playerPos[0]][game.playerPos[1]].tileId === 'water') {
+    const tile = game.map[game.playerPos[0]][game.playerPos[1]].tileId
+    if (tile === 'water') {
         // we're drowning!
         hurt(game, 10)
+    }
+    if (tile === 'lava') {
+        hurt(game, 25, 0.5)
     }
     
     

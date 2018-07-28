@@ -40,6 +40,10 @@ const obtainColor = ({ tileId, visible }: TileProps) => {
   colors.set('sand' , '#c2b280')
   colors.set('dirt' , '#bb8b00')
   colors.set('stone', '#8d8d8d')
+  colors.set('ice'  , '#b9e8ea')
+  colors.set('snow' , '#fffafa')
+  colors.set('lava' , '#cf1020')
+  colors.set('volcanic', '#3d3f3e')
   colors.set('void' , '#000000')
 
   return colors.get(tileId)

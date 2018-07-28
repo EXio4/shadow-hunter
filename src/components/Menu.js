@@ -11,8 +11,8 @@ const Menu = (props: MenuProps) => {
         </div>
         
         <div className="menu-start"
-            onClick={() => props.start(64)}
-            onTouchdown={() => props.start(64)}>
+            onClick={() => props.start(128)}
+            onTouchdown={() => props.start(128)}>
             START GAME
         </div>
     </div>)

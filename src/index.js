@@ -7,7 +7,7 @@ import './style.css'
 ReactDOM.render(<React.Fragment>
     <App />
     <div className="version">
-        {"shadowhunter-v0.1-dev"}
+        {"shadowhunter-v0.1-dev-1"}
     </div>
     </React.Fragment>, document.getElementById('root'));
 registerServiceWorker();

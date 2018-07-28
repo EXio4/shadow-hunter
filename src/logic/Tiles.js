@@ -6,6 +6,10 @@ export type TileID = "grass"
                    | "water"
                    | "sand"
                    | "stone"
+                   | "ice"
+                   | "snow"
+                   | "lava"
+                   | "volcanic"
                    | "void"
                   
 export type Powerup =

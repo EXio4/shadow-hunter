@@ -107,7 +107,7 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       
-      new DefinePlugin({
+      new webpack.DefinePlugin({
         'VERSION': JSON.stringify(gitRevisionPlugin.version()),
         'COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash()),
         'BRANCH': JSON.stringify(gitRevisionPlugin.branch()),

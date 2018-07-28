@@ -59,6 +59,7 @@ export const Stats = (props: { stats: PlayerStats }) => {
         'right': '3vmin',
         'height': '4vmin',
         'width': '40vmin',
+        'fontSize': '3.5vmin',
         'border': '0.4vmin solid #f3b',
         'color': '#fff',
         'filter': 'drop-shadow(0x, -1vmin, 1vmin) blur(4px)',
