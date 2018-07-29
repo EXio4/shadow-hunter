@@ -69,7 +69,6 @@ const getStyle = (props: TileProps) => {
     'top': '0',
     'zIndex': (1000+props.pos[0]+props.pos[1])*2,
     'transform': 'translate3d(' + (props.pos[0] * 32 - height) + 'px, ' + (props.pos[1] * 32 - height) + 'px, 0px) ',
-    filter: undefined
   }
   return style
 }

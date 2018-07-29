@@ -78,7 +78,7 @@ let updateFOV = (_game: GameMap): GameMap => {
             for (let oy = -blocks; oy <= blocks; oy++) {
                 let y = _game.playerPos.y + oy
                 let pos = CVec2({x,y})
-                if (ox**2 + oy**2 <= 27) {
+                if (withinBounds(_game, pos) && ox**2 + oy**2 <= 27) {
                     map = map.update(pos,(tile: Tile) => ({...tile, visible: true }))
                 }
             }
@@ -146,7 +146,7 @@ const genTile = (seeds: Seeds, x: number, y: number): [TileID, number] => {
                 type = "volcanic"
             }
             noise = 5
-        } else if (noise <= 10) {
+        } else if (humid <= 25 || noise <= 10) {
             type = "sand"
         } else if (noise <= 18) {
             type = "grass"

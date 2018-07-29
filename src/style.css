@@ -1,13 +1,13 @@
 html, body {
   margin: 0px;
-  overflow: none;
+  overflow: hidden;
   background: #333;
   width: 100vw;
   height: 100vh;
   font-family: 'Do Hyeon', sans-serif;
 }
 #root {
-  overflow: none;
+  overflow: hidden;
 }
 
 .version {
