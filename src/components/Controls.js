@@ -16,7 +16,7 @@ type Props = {
 let style = {
     'position': 'fixed',
     'bottom': '2vmin',
-    'right': '2vmin',
+    'left': '2vmin',
     'width': '32vmin',
     'height': '32vmin',
     'transform': 'rotate(45deg)',
