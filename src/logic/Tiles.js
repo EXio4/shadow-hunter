@@ -5,6 +5,7 @@
 export type TileID = "grass"
                    | "water"
                    | "sand"
+                   | "desert-sand"
                    | "stone"
                    | "ice"
                    | "snow"

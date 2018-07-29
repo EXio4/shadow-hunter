@@ -105,9 +105,9 @@ type Seeds = {
 }
 
 const genTile = (seeds: Seeds, x: number, y: number): [TileID, number] => {
-    let noise = 11 * (seeds['noise'].noise2D(x/8, y/9) + 1) - 2 // -2 - 20, should help with depth/height
-    let humid = 50 * (seeds['humid'].noise2D(x/96, y/96) + 1) // 0% - 100% humidity
-    let temp  = 30 * (seeds['temp'].noise2D(x/128, y/128) + 0.5) // -15 to 45, 0 defines water freezing
+    let noise = 16 * (seeds['noise'].noise2D(x/10, y/10) + 1) - 2 // -2 - 30, should help with depth/height
+    let humid = 50 * (seeds['humid'].noise2D(x/128, y/128) + 1) // 0% - 100% humidity
+    let temp  = 32.5 * (seeds['temp'].noise2D(x/96, y/96) + 1) - 15 // -15 to 50, 0 defines water freezing
     /*
      * The idea behind the algorithm is that it will pick for:
      * low humidity implies less water/desert
@@ -117,13 +117,6 @@ const genTile = (seeds: Seeds, x: number, y: number): [TileID, number] => {
      * and if they're too high it becomes a volcanic biome
      * 
      */
-    
-    
-    if (humid <= 20) { 
-        // higher due to low humidity, to avoid water
-        noise += 2 * Math.sin((20-humid) / (Math.PI/40))
-    }
-    
     
     let type = "void"
 
@@ -137,6 +130,10 @@ const genTile = (seeds: Seeds, x: number, y: number): [TileID, number] => {
         }
     } else if (temp <= 40) {
         // normal
+        if (humid <= 25 && noise <= 7) {
+            // adjust water level due to humidity
+            noise += 5 * (25-humid)/25
+        }
         if (noise <= 6) {
             if (temp <= 2.5) {
                 type = "ice"
@@ -146,9 +143,11 @@ const genTile = (seeds: Seeds, x: number, y: number): [TileID, number] => {
                 type = "volcanic"
             }
             noise = 5
-        } else if (humid <= 25 || noise <= 10) {
+        } else if (humid <= 25) {
+            type = "desert-sand"
+        } else if (noise <= 15) {
             type = "sand"
-        } else if (noise <= 18) {
+        } else if (noise <= 25) {
             type = "grass"
         } else {
             type = "stone"
@@ -172,7 +171,7 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
   let seeds = {
       temp:  new Noise("temps" + seed),
       noise: new Noise("noise" + seed),
-      humid: new Noise("humid" + seed),
+      humid: new Noise("wet" + seed),
       gen:   new Noise("gen" + seed)
   }
   let map = IMap().withMutations((map) => {
