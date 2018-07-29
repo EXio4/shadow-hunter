@@ -12,7 +12,6 @@ import Player from './Player'
 import { getNearby } from '../logic/Game'
 import type { Action } from '../redux/actions'
 
-import idle_cat from '../assets/idle_cat.png'
 import './styles.css'
 
 import type { MapProps } from '../types.js'

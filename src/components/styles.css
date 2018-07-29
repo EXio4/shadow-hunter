@@ -1,17 +1,34 @@
-.idle { 
+.player {
   height: 32px;
-  width: 32px;
+  width: 32px;    
+  image-rendering: pixelated;
+  transform: rotateZ(-45deg) scale3d(1, 2, 1) translate3d(0, -12px, 0px);
+}
+.idle { 
   animation: idle steps(4); 
   animation-duration: 0.4s;
   animation-iteration-count: infinite;
-  background-image: url('../assets/idle_cat.png');
-  image-rendering: pixelated;
+  background-image: url('../assets/player.png');
 }
 
 @keyframes idle {
-  from { background-position:0px 0px; }
-  to { background-position:132px 0px; }
+  from { background-position: -16px -24px; }
+  to { background-position: -272px -24px; }
 }
+
+.dead { 
+  animation: dead steps(7); 
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  background-image: url('../assets/player.png');
+  background-position: -396px -280px;
+}
+
+@keyframes dead {
+  from { background-position: -12px -280px; }
+  to { background-position: -460px -280px; }
+}
+
 
 .bar {
   transition: width 1.1s linear;
