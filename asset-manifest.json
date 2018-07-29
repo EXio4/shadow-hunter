@@ -1,11 +1,12 @@
 {
-  "main.css": "static/css/main.0e84f12c.css",
-  "main.css.map": "static/css/main.0e84f12c.css.map",
-  "main.js": "static/js/main.4c91c7a2.js",
-  "main.js.map": "static/js/main.4c91c7a2.js.map",
+  "main.css": "static/css/main.1c0a085a.css",
+  "main.css.map": "static/css/main.1c0a085a.css.map",
+  "main.js": "static/js/main.77fed4b1.js",
+  "main.js.map": "static/js/main.77fed4b1.js.map",
   "static/media/edgy-16x16-arrow_down.svg": "static/media/edgy-16x16-arrow_down.f18b9305.svg",
   "static/media/edgy-16x16-arrow_left.svg": "static/media/edgy-16x16-arrow_left.fdfc0f3c.svg",
   "static/media/edgy-16x16-arrow_right.svg": "static/media/edgy-16x16-arrow_right.b1747ec8.svg",
   "static/media/edgy-16x16-arrow_up.svg": "static/media/edgy-16x16-arrow_up.6bf29e91.svg",
-  "static/media/gems.svg": "static/media/gems.ded879cf.svg"
+  "static/media/gems.svg": "static/media/gems.ded879cf.svg",
+  "static/media/player.png": "static/media/player.91441e5e.png"
 }
