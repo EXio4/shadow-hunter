@@ -316,7 +316,7 @@ export const tickStep = (_game: GameMap): GameMap => {
               y: Math.floor(Math.abs((mapBounds[0].y - mapBounds[1].y) * Math.random())),
             })
             let tile = map.get(pos)
-            if (tile && pos !== playerPos && tile.tileId !== 'water') { 
+            if (tile && pos !== playerPos && tile.tileId !== 'water' && tile.tileId !== 'lava') { 
               game = game.update('map', (map) => 
                 map.update(pos, (tile) =>
                     ({...tile, powerup: randomPowerup() })))
