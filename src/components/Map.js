@@ -109,7 +109,10 @@ export class Map extends React.Component<MapProps, MapState> {
             )}
         </div>)
         
-        return (<div style={flexbox} {...ArrowKeysReact.events}>
+        return (<div
+            style={flexbox} {...ArrowKeysReact.events}
+            autoFocus >
+
             <Stats stats={this.props.map.stats} />
             <BodyClassName className={this.props.map.hurt ? 'hurt' : ''}>
                 {map}
