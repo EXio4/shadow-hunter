@@ -15,7 +15,7 @@ class Camera extends React.Component<ContextProps & CameraProps> {
   look(lookAt: [number, number]) {
     if (this.props.ctx.renderer && this.props.ctx.renderer.camera) {
       const camera = this.props.ctx.renderer.camera
-      camera.position.set( lookAt[0]+10, 20, lookAt[1]+20)
+      camera.position.set( lookAt[0]+20, 20, lookAt[1]+20)
       camera.lookAt(lookAt[0], 0, lookAt[1])
     }
   }
