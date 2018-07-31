@@ -5651,6 +5651,10 @@ react-redux@^5.0.7:
     loose-envify "^1.1.0"
     prop-types "^15.6.0"
 
+react-resize-observer@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-resize-observer/-/react-resize-observer-1.0.3.tgz#f14f0794bec6ca55b86e726c158b7e151135ca52"
+
 react-side-effect@^1.1.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.5.tgz#f26059e50ed9c626d91d661b9f3c8bb38cd0ff2d"
@@ -6586,6 +6590,10 @@ test-exclude@^4.2.1:
 text-table@0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
+
+three@^0.94.0:
+  version "0.94.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.94.0.tgz#4ce6db7f2bfbf79c2d73444aa6e3cfc08a32d762"
 
 throat@^3.0.0:
   version "3.2.0"

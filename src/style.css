@@ -9,7 +9,10 @@ html, body {
 #root {
   overflow: hidden;
 }
-
+canvas {
+  width: 100%;
+  height: 100%;
+}
 .version {
     position: fixed;
     left: 1vmin;

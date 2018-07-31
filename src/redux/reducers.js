@@ -1,6 +1,5 @@
 // @flow
 
-import type { GameMap } from '../logic/Game'
 import type { GState } from '../types'
 import { genRandomMap, move, tickStep } from '../logic/Game'
 import type { Action } from './actions.js'

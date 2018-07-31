@@ -3,6 +3,8 @@
 import React from 'react'
 import type { Node } from 'react'
 
+import Tile3D from '../render/Tile'
+
 import type { TileID, Powerup } from '../logic/Tiles'
 
 export type TileProps = {
@@ -28,26 +30,27 @@ const fromPowerup = (powerup?: Powerup): Node => {
     }
 }
 
-const obtainColor = ({ tileId, visible }: TileProps) => {
+const obtainColor = ({ tileId, visible }: TileProps): number => {
   if (!visible) {
-    return '#505060'
+    return 0x505060
   }
 
   let colors = new Map()
 
-  colors.set('grass', '#98dd00')
-  colors.set('water', '#00ddca')
-  colors.set('sand' , '#c2b280')
-  colors.set('desert-sand', '#f4a460')
-  colors.set('dirt' , '#bb8b00')
-  colors.set('stone', '#8d8d8d')
-  colors.set('ice'  , '#b9e8ea')
-  colors.set('snow' , '#fffafa')
-  colors.set('lava' , '#cf1020')
-  colors.set('volcanic', '#3d3f3e')
-  colors.set('void' , '#000000')
+  colors.set('grass', 0x98dd00)
+  colors.set('water', 0x00ddca)
+  colors.set('sand' , 0xc2b280)
+  colors.set('desert-sand', 0xf4a460)
+  colors.set('dirt' , 0xbb8b00)
+  colors.set('stone', 0x8d8d8d)
+  colors.set('ice'  , 0xb9e8ea)
+  colors.set('snow' , 0xfffafa)
+  colors.set('lava' , 0xcf1020)
+  colors.set('volcanic', 0x3d3f3e)
+  colors.set('void' , 0x000000)
 
-  return colors.get(tileId)
+  const val = colors.get(tileId)
+  return val ? val : 0xff0000
 }
 
 const obtainHeight = ({ tileId, height, visible }: TileProps) => {
@@ -57,29 +60,15 @@ const obtainHeight = ({ tileId, height, visible }: TileProps) => {
   return height
 }
 
-
-//rotateZ(-45deg) rotateY(-60deg)
-const getStyle = (props: TileProps) => {
-  let height = obtainHeight(props)
-  let style = {
-    'backgroundColor': obtainColor(props),
-    'width': '32px',
-    'height': '32px',
-    'position': 'absolute',
-    'left': '0',
-    'top': '0',
-    'zIndex': (1000+props.pos[0]+props.pos[1])*2,
-    'transform': 'translate3d(' + (props.pos[0] * 32 - height) + 'px, ' + (props.pos[1] * 32 - height) + 'px, 0px) ',
-  }
-  return style
-}
-
-
 export const Tile = (props: TileProps) => (
-  <div className={props.important ? 'glow' : 'none'} style={getStyle(props)}>
-    {props.visible ? fromPowerup(props.powerup) : null}
-    {props.children}
-  </div>
+  props.visible ? (
+    <Tile3D x={props.pos[0]} y={props.pos[1]}
+      height={1} color={obtainColor(props)} />
+  ): null
 )
+/*
 
+{props.visible ? fromPowerup(props.powerup) : null}
+{props.children}
+*/
 export default Tile

@@ -1,12 +1,12 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import { Provider } from 'react-redux';  
 
 import { connect } from 'react-redux'
 
 import { Move, Tick, StartGame } from './redux/actions'
 import { store } from './redux/redux'
-import type { GState, PActions } from './types'
+import type { GState } from './types'
 import Game from './components/Game'
 
 const mapStateToProps = (state: GState, ownProps): { st: GState } => ({

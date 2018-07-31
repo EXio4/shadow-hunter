@@ -45,27 +45,8 @@ export const withinBounds = (game: GameMap, pos: Vec2): boolean => {
     return (pos.x >= game.mapBounds[0].x && pos.y >= game.mapBounds[0].y && pos.x < game.mapBounds[1].x && pos.y < game.mapBounds[1].y)
 }
 
-export const getNearby = (game: GameMap, blocks: number): Tile[][] => {
-
-  let res: Tile[][] = []
-
-  for (let ox = -blocks; ox <= blocks; ox++) {
-    let x = game.playerPos.x + ox
-    let row: Tile[] = []
-    for (let oy = -blocks; oy <= blocks; oy++) {
-      let y = game.playerPos.y + oy
-      let tile = game.map.get(CVec2({x,y}))
-      if (tile != null) {
-        row.push(tile)
-      } else {
-        row.push({ tileId: 'void', height: -4, visible: true })
-      }
-    }
-    res.push(row)
-  }
-
-  return res
-}
+export const getNearby = (game: GameMap, blocks: number): IMap<Vec2, Tile> =>
+  game.map.filter((value, { x, y }) => Math.abs(game.playerPos.x - x) <= 10 && Math.abs(game.playerPos.y - y))
 
 
 
