@@ -47,7 +47,13 @@ export class Renderer extends React.Component<RendererProps> {
     componentWillMount() {
 
       this.scene = new THREE.Scene()
-      this.camera = new THREE.PerspectiveCamera( 90, 1, 0.1, 1000 );
+      window.scene = this.scene
+      window.THREE = THREE
+      let d = 15
+      this.camera = new THREE.OrthographicCamera(-d, d, d, -d, 0.1, 1000)
+
+      this.camera.position.set( 30, 30, 30 ); // all components equal
+      this.camera.lookAt(new THREE.Vector3(0,0,0))
     }
 
     componentDidMount() {

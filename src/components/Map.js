@@ -118,7 +118,7 @@ export class Map extends React.Component<MapProps, MapState> {
             <BodyClassName className={this.props.map.hurt ? 'hurt' : ''}>
                 <Renderer className={this.props.map.dead ? 'deadMap' : 'aliveMap'} style={style(blocks)}>
                   {map}
-                  <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.x]} />
+                  <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.y]} />
                 </Renderer>
             </BodyClassName>
             <Controls move={this.props.move} />

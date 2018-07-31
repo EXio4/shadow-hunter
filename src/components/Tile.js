@@ -63,7 +63,7 @@ const obtainHeight = ({ tileId, height, visible }: TileProps) => {
 export const Tile = (props: TileProps) => (
   props.visible ? (
     <Tile3D x={props.pos[0]} y={props.pos[1]}
-      height={1} color={obtainColor(props)} />
+      height={obtainHeight(props)} color={obtainColor(props)} />
   ): null
 )
 /*

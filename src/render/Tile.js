@@ -35,18 +35,17 @@ class Tile extends React.Component<ContextProps & TileProps> {
     }
   }
 
-  componentDidUpdate(oldProps: ContextProps & TileProps, newProps?: ContextProps & TileProps) {
-    if (newProps) {
-      if (oldProps.height !== newProps.height) { 
-        this.geometry = new THREE.BoxGeometry(1, newProps.height, 1)
-        this.cube.geometry = this.geometry
-      }
-      if (oldProps.color !== newProps.color) {
-        this.material.color.set(newProps.color)
-      }
-      if (oldProps.x !== newProps.x || oldProps.y !== newProps.y) {
-        this.cube.position.set(newProps.x, newProps.y, 0);
-      }
+  componentDidUpdate(oldProps: ContextProps & TileProps) {
+    const newProps = this.props
+    if (oldProps.height !== newProps.height) { 
+      this.geometry = new THREE.BoxGeometry(1, newProps.height, 1)
+      this.cube.geometry = this.geometry
+    }
+    if (oldProps.color !== newProps.color) {
+      this.material.color.set(newProps.color)
+    }
+    if (oldProps.x !== newProps.x || oldProps.y !== newProps.y) {
+      this.cube.position.set(newProps.x, newProps.y, 0);
     }
   }
 

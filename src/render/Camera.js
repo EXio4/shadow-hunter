@@ -15,8 +15,7 @@ class Camera extends React.Component<ContextProps & CameraProps> {
   look(lookAt: [number, number]) {
     if (this.props.ctx.renderer && this.props.ctx.renderer.camera) {
       const camera = this.props.ctx.renderer.camera
-      camera.position.set( lookAt[0], lookAt[1], 30 )
-      camera.lookAt(new THREE.Vector3(lookAt[0], lookAt[1], 0))
+      camera.position.set( lookAt[0]+30, lookAt[1]+30, 30)
     }
   }
 
@@ -24,11 +23,9 @@ class Camera extends React.Component<ContextProps & CameraProps> {
     this.look(this.props.lookAt)
   }
 
-  componentWillUpdate(oldProps: ContextProps & CameraProps, newProps?: ContextProps & CameraProps) {
-    if (newProps) {
-      if (oldProps.lookAt[0] !== newProps.lookAt[0] || oldProps.lookAt[1] !== newProps.lookAt[1]) {
-        this.look(newProps.lookAt)
-      }
+  componentWillUpdate(oldProps: ContextProps & CameraProps) {
+    if (oldProps.lookAt[0] !== this.props.lookAt[0] || oldProps.lookAt[1] !== this.props.lookAt[1]) {
+      this.look(this.props.lookAt)
     }
   }
 
