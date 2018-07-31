@@ -57,7 +57,7 @@ const obtainHeight = ({ tileId, height, visible }: TileProps) => {
   if (!visible) {
     return -2
   }
-  return height
+  return height 
 }
 
 export const Tile = (props: TileProps) => (

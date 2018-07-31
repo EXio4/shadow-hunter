@@ -54,6 +54,8 @@ export class Renderer extends React.Component<RendererProps> {
 
       this.camera.position.set( 30, 30, 30 ); // all components equal
       this.camera.lookAt(new THREE.Vector3(0,0,0))
+
+      this.scene.add(this.camera)
     }
 
     componentDidMount() {
