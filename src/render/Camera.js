@@ -12,7 +12,7 @@ export type CameraProps = {
 class Camera extends Object3D<CameraProps> {
 
   look(lookAt: [number, number], obj: any = this.obj) {
-    obj.position.set( lookAt[0]+20, 20, lookAt[1]+20)
+    obj.position.set( lookAt[0]+20, 30, lookAt[1]+20)
     obj.lookAt(lookAt[0], 0, lookAt[1])
   }
 
