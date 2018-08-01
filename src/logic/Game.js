@@ -46,7 +46,7 @@ export const withinBounds = (game: GameMap, pos: Vec2): boolean => {
 }
 
 export const getNearby = (game: GameMap, blocks: number): IMap<Vec2, Tile> =>
-  game.map.filter((value, { x, y }) => Math.abs(game.playerPos.x - x) <= 10 && Math.abs(game.playerPos.y - y))
+  game.map.filter((value, { x, y }) => Math.abs(game.playerPos.x - x) <= 10 && Math.abs(game.playerPos.y - y) <= 10)
 
 
 

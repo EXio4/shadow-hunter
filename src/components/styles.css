@@ -71,9 +71,16 @@
     }
 }
 
- 
+.map {
+  position: fixed;
+  top: 0vmin;
+  left: 0vw;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
 
-.deadMap {
+.dead {
   animation: dying;
   animation-duration: 1.5s;
   filter: grayscale(100%);

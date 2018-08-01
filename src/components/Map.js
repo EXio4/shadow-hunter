@@ -24,27 +24,8 @@ type WindowSize = {
 }
 
 type MapState = {
-    blocks: number,
     win: WindowSize,
 }
-
-let flexbox = {
-    'position': 'absolute',
-    'overflow': 'hidden',
-    'height': '100vh',
-    'width': '100vw',
-}
-
-let style = (blocks: number) => ({
-  'top': '2vmin',
-  'left': 'calc(( 100% -  90vmin ) / 2)',
-  'position': 'absolute',
-  'overflow': 'hidden',
-  'height': '90vmin',
-  'width': '90vmin',
-  'backgroundColor': '#333',
-  'border': '1vmin solid #77a',
-})
 
 export class Map extends React.Component<MapProps, MapState> {
     interval: IntervalID | null;
@@ -74,13 +55,12 @@ export class Map extends React.Component<MapProps, MapState> {
     updateWindowDimensions = () => {
         let width = window.innerWidth
         let height = window.innerHeight
-        let ratio = Math.floor(((width > height ? height : width) / 28)/2 - 0.5)
         
-        this.setState({ blocks: ratio, win: { width: window.innerWidth, height: window.innerHeight }});
+        this.setState({ win: { width: window.innerWidth, height: window.innerHeight }});
     }
     
     render() {
-        let around = getNearby(this.props.map, this.state.blocks)
+        let around = getNearby(this.props.map, 30)
         
         ArrowKeysReact.config({
             left: () => {
@@ -97,7 +77,6 @@ export class Map extends React.Component<MapProps, MapState> {
             }
         });
 
-        const blocks = this.state.blocks
         const map = around.map((tile, { x, y } ) => {
           return (
             <Tile {...tile} pos={[x,y]} key={x * 1024 + y}>
@@ -110,17 +89,13 @@ export class Map extends React.Component<MapProps, MapState> {
                     (x === blocks && y === blocks) ? <Player map={this.props.map} /> : null
                 }
         */
-        return (<div tabIndex="1"
-            style={flexbox} {...ArrowKeysReact.events}
+        return (<div tabIndex="1" {...ArrowKeysReact.events}
             autoFocus >
-
+            <Renderer className={this.props.map.dead ? 'map dead' : 'map'}>
+              {map}
+              <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.y]} />
+            </Renderer>
             <Stats stats={this.props.map.stats} />
-            <BodyClassName className={this.props.map.hurt ? 'hurt' : ''}>
-                <Renderer className={this.props.map.dead ? 'deadMap' : 'aliveMap'} style={style(blocks)}>
-                  {map}
-                  <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.y]} />
-                </Renderer>
-            </BodyClassName>
             <Controls move={this.props.move} />
         </div>)
     }

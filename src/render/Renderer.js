@@ -20,6 +20,7 @@ export type RendererProps = {
 export class Renderer extends React.Component<RendererProps> {
 
     size: { height: number, width: number } | null
+    aspect: number
     canvas: HTMLCanvasElement | null
     frameId: AnimationFrameID | null
     /* those don't actually mean much due to lack of types */
@@ -32,14 +33,18 @@ export class Renderer extends React.Component<RendererProps> {
       this.canvas = null
       this.size = null
       this.frameId = null
+      this.aspect = 1
     }
 
-    updateWinSize() {
+    updateWinSize = () => {
       if (this.canvas && this.renderer) {
         this.size = {
           width: this.canvas.offsetWidth,
           height: this.canvas.offsetHeight,
         }
+        this.aspect = this.size.height/this.size.width
+        this.camera.left = -20 * this.aspect
+        this.camera.right = 20 * this.aspect
         this.renderer.setSize(this.size.width, this.size.height)
       }
     }
@@ -49,13 +54,16 @@ export class Renderer extends React.Component<RendererProps> {
       this.scene = new THREE.Scene()
       window.scene = this.scene
       window.THREE = THREE
-      let d = 15
+      let d = 20
       this.camera = new THREE.OrthographicCamera(-d, d, d, -d, 0.1, 1000)
-
-      this.camera.position.set( 30, 30, 30 ); // all components equal
-      this.camera.lookAt(new THREE.Vector3(0,0,0))
-
       this.scene.add(this.camera)
+
+      let light = new THREE.AmbientLight(0xFFFFFF);
+      light.position.set(64, 10, 64);
+      this.scene.add(light);
+/*      let l2 = new THREE.PointLight(0xFFFFFF, 1, 30, 1);
+      l2.position.set(64, 12, 64);
+      this.scene.add(light); */
     }
 
     componentDidMount() {
@@ -67,6 +75,9 @@ export class Renderer extends React.Component<RendererProps> {
       this.updateWinSize()
 
       this.start()
+    }
+
+    componentWillUpdate() {
     }
 
     componentWillUnmount() {
