@@ -7,6 +7,14 @@ import Tile3D from '../render/Tile'
 import Material from '../render/Material'
 
 import type { TileID, Powerup } from '../logic/Tiles'
+import text_snow from '../assets/blocks/snow.png'
+import text_ice from '../assets/blocks/ice.png'
+import text_water from '../assets/blocks/water.png'
+import text_lava from '../assets/blocks/lava.png'
+import text_grass from '../assets/blocks/grass.png'
+import text_sand from '../assets/blocks/sand.png'
+import text_desert_sand from '../assets/blocks/desert_sand.png'
+import text_stone from '../assets/blocks/stone.png'
 
 export type TileProps = {
   children?: Node,
@@ -32,15 +40,15 @@ const fromPowerup = (powerup?: Powerup): Node => {
 }
 let colors = new Map()
 
-colors.set('grass', new Material(0x98dd00))
-colors.set('water', new Material(0x00ddca))
-colors.set('sand' , new Material(0xc2b280))
-colors.set('desert-sand', new Material(0xf4a460))
+colors.set('grass', new Material({ color: 0x98dd00, texture: text_grass } ))
+colors.set('water', new Material({ color: 0x00ddca, texture: text_water } ))
+colors.set('sand' , new Material({ color: 0xc2b280, texture: text_sand } ))
+colors.set('desert-sand', new Material({ color: 0xf4a460, texture: text_desert_sand }))
 colors.set('dirt' , new Material(0xbb8b00))
-colors.set('stone', new Material(0x8d8d8d))
-colors.set('ice'  , new Material(0xb9e8ea))
-colors.set('snow' , new Material(0xfffafa))
-colors.set('lava' , new Material(0xcf1020))
+colors.set('stone', new Material({ color: 0x8d8d8d, texture: text_stone }))
+colors.set('ice'  , new Material({ color: 0xb9e8ea, texture: text_ice } ))
+colors.set('snow' , new Material({ color: 0xfffafa, texture: text_snow } ))
+colors.set('lava' , new Material({ color: 0xcf1020, texture: text_lava } ))
 colors.set('volcanic', new Material(0x3d3f3e))
 colors.set('void' , new Material(0x000000))
 
