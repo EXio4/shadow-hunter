@@ -1,10 +1,9 @@
 // @flow
-import React from 'react'
 import * as THREE from 'three'
 
 import Ctx from './Context'
-import type { Context3D, ContextProps } from './Context'
 import type { Material } from './Material'
+import Object3D from './Object3D'
 
 export type TileProps = {
   x: number,
@@ -13,47 +12,36 @@ export type TileProps = {
   material: Material,
 }
 
-const geom = new THREE.PlaneGeometry(1, 1) 
+const geom = []
 
-class Tile extends React.Component<ContextProps & TileProps> {
-
-  ctx: Context3D
-  geometry: THREE.BoxGeometry
-  material: THREE.MeshBasicMaterial
-  cube: THREE.Mesh
-
-  constructor(props: ContextProps & TileProps) {
-    super(props)
-    this.ctx = props.ctx
-    this.geometry = geom // new THREE.BoxGeometry(1, props.height, 1)
-    this.material = props.material.material
-    this.cube = new THREE.Mesh(this.geometry, this.material)
-    this.cube.position.set(props.x, props.height/12, props.y);
-    this.cube.rotation.x = Math.PI * -0.5
+function getHeight(x: number) {
+  if (!geom[x]) {
+    geom[x] = new THREE.BoxGeometry( 1, 1, x/9 ) 
   }
 
-  componentDidMount() {
-    if (this.ctx.renderer) {
-      this.ctx.renderer.add(this.cube)
-    }
+  return geom[x]
+}
+
+//const geom = new THREE.PlaneGeometry(1, 1) 
+
+class Tile extends Object3D<TileProps> {
+
+  init(props: TileProps) {
+    let cube = new THREE.Mesh(getHeight(props.height), props.material.material)
+    cube.position.set(props.x, props.height/9 / 2, props.y);
+    cube.rotation.x = Math.PI * -0.5
+    return cube
   }
 
-  componentDidUpdate(oldProps: ContextProps & TileProps) {
-    const newProps = this.props
+  updateProps(oldProps: TileProps, newProps: TileProps) {
     if (oldProps.height !== newProps.height) { 
-      //this.geometry = new THREE.BoxGeometry(1, newProps.height, 1)
-      //      this.geometry = new THREE.PlaneGeometry(1, 1)
-      this.cube.position.setY(newProps.height/12)
-     // this.cube.geometry = this.geometry
+      this.obj.position.setY(newProps.height/9 / 2)
+      this.obj.geometry = getHeight(newProps.height)
     }
     if (oldProps.x !== newProps.x || oldProps.y !== newProps.y) {
-      this.cube.position.setX(newProps.x)
-      this.cube.position.setZ(newProps.y)
+      this.obj.position.setX(newProps.x)
+      this.obj.position.setZ(newProps.y)
     }
-  }
-
-  render() {
-    return null
   }
 }
 

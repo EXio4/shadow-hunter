@@ -17,6 +17,9 @@ import type { MapProps } from '../types.js'
 
 import Renderer from '../render/Renderer'
 import Camera from '../render/Camera'
+import AmbientLight from '../render/AmbientLight'
+import DirectionalLight from '../render/DirectionalLight'
+import PointLight from '../render/PointLight'
 
 type WindowSize = {
     width: number,
@@ -56,11 +59,11 @@ export class Map extends React.Component<MapProps, MapState> {
         let width = window.innerWidth
         let height = window.innerHeight
         
-        this.setState({ win: { width: window.innerWidth, height: window.innerHeight }});
+        this.setState({ win: { width: width, height: height } })
     }
     
     render() {
-        let around = getNearby(this.props.map, 30)
+        let around = getNearby(this.props.map, 50)
         
         ArrowKeysReact.config({
             left: () => {
@@ -77,28 +80,28 @@ export class Map extends React.Component<MapProps, MapState> {
             }
         });
 
-        const map = around.map((tile, { x, y } ) => {
-          return (
-            <Tile {...tile} pos={[x,y]} key={x * 1024 + y}>
-
-            </Tile>
-          )
-
-        }).toSetSeq()
+        const map = around.map((tile, { x, y } ) => (<Tile {...tile} pos={[x,y]} key={x * 1024 + y} />)).toSetSeq().toArray()
         /*                {
                     (x === blocks && y === blocks) ? <Player map={this.props.map} /> : null
                 }
         */
+        let playerHeight_ = this.props.map.map.get(this.props.map.playerPos)
+        let playerHeight = 8 + (playerHeight_ ? playerHeight_.height / 9 : 2)
+
         return (<div tabIndex="1" {...ArrowKeysReact.events}
             autoFocus >
             <Renderer className={this.props.map.dead ? 'map dead' : 'map'}>
-              {map}
+              <AmbientLight color={0x606060} />
+              <DirectionalLight color={0x909090} />
+              
               <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.y]} />
+              {map}
             </Renderer>
             <Stats stats={this.props.map.stats} />
             <Controls move={this.props.move} />
         </div>)
     }
+    //<PointLight color={0xffffff} position={[this.props.map.playerPos.x, playerHeight, this.props.map.playerPos.y]} distance={40} />
 }
 
 export default Map

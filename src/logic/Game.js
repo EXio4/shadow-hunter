@@ -51,6 +51,8 @@ export const getNearby = (game: GameMap, blocks: number): IMap<Vec2, Tile> =>
 
 
 let updateFOV = (_game: GameMap): GameMap => {
+  return _game
+  /*
     return _game.update('map',(_map) => _map.withMutations(map => {
         let blocks = 6
         for (let ox = -blocks; ox <= blocks; ox++) {
@@ -65,7 +67,7 @@ let updateFOV = (_game: GameMap): GameMap => {
             }
         }
         return map
-    }))
+    })) */
 }
 
 export const move = (_game: GameMap, x: number, y: number): GameMap => {
@@ -160,7 +162,7 @@ export const genRandomMap = (size: number, playerPos: [number, number], seed?: s
       for (let y=0; y<size; y++) {
           let pos = CVec2({x,y})
           let type = genTile(seeds, x,y)
-          map = map.set(pos, ( { tileId: type[0], height: Math.floor(type[1]), visible: false } ))
+          map = map.set(pos, ( { tileId: type[0], height: Math.floor(type[1]), visible: true } ))
       }
     }
     return map

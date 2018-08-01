@@ -26,7 +26,7 @@ export class Renderer extends React.Component<RendererProps> {
     /* those don't actually mean much due to lack of types */
     renderer: THREE.WebGLRenderer
     scene: THREE.Scene
-    camera: THREE.OrthographicCamera
+    camera: THREE.Camera | null
 
     constructor(props: RendererProps) {
       super(props)
@@ -34,6 +34,7 @@ export class Renderer extends React.Component<RendererProps> {
       this.size = null
       this.frameId = null
       this.aspect = 1
+      this.camera = null
     }
 
     updateWinSize = () => {
@@ -42,28 +43,12 @@ export class Renderer extends React.Component<RendererProps> {
           width: this.canvas.offsetWidth,
           height: this.canvas.offsetHeight,
         }
-        this.aspect = this.size.height/this.size.width
-        this.camera.left = -20 * this.aspect
-        this.camera.right = 20 * this.aspect
         this.renderer.setSize(this.size.width, this.size.height)
       }
     }
 
     componentWillMount() {
-
       this.scene = new THREE.Scene()
-      window.scene = this.scene
-      window.THREE = THREE
-      let d = 20
-      this.camera = new THREE.OrthographicCamera(-d, d, d, -d, 0.1, 1000)
-      this.scene.add(this.camera)
-
-      let light = new THREE.AmbientLight(0xFFFFFF)
-      light.position.set(64, 10, 64)
-      this.scene.add(light)
-      let l2 = new THREE.PointLight(0xFFFFFF, 1, 30, 1)
-      l2.position.set(64, 2, 64)
-      this.scene.add(light)
     }
 
     componentDidMount() {
@@ -121,9 +106,18 @@ export class Renderer extends React.Component<RendererProps> {
     }
 
 
-    add(geom: THREE.Geometry) {
+    add(geom: THREE.Object3D) {
+      if (geom.isCamera) {
+        this.camera = geom
+      }
       if (this.scene) {
         this.scene.add(geom)
+      }
+    }
+
+    remove(geom: THREE.Object3D) {
+      if (this.scene) {
+        this.scene.remove(geom)
       }
     }
 
