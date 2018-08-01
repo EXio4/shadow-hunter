@@ -4,6 +4,7 @@ import React from 'react'
 import type { Node } from 'react'
 
 import Tile3D from '../render/Tile'
+import Material from '../render/Material'
 
 import type { TileID, Powerup } from '../logic/Tiles'
 
@@ -29,28 +30,27 @@ const fromPowerup = (powerup?: Powerup): Node => {
         return (<div className="gem green-1" />)
     }
 }
+let colors = new Map()
 
-const obtainColor = ({ tileId, visible }: TileProps): number => {
-  if (!visible) {
-    return 0x505060
-  }
+colors.set('grass', new Material(0x98dd00))
+colors.set('water', new Material(0x00ddca))
+colors.set('sand' , new Material(0xc2b280))
+colors.set('desert-sand', new Material(0xf4a460))
+colors.set('dirt' , new Material(0xbb8b00))
+colors.set('stone', new Material(0x8d8d8d))
+colors.set('ice'  , new Material(0xb9e8ea))
+colors.set('snow' , new Material(0xfffafa))
+colors.set('lava' , new Material(0xcf1020))
+colors.set('volcanic', new Material(0x3d3f3e))
+colors.set('void' , new Material(0x000000))
 
-  let colors = new Map()
+const obtainColor = ({ tileId, visible }: TileProps): Material => {
+  if (!visible)
+    return new Material(0x505060)
 
-  colors.set('grass', 0x98dd00)
-  colors.set('water', 0x00ddca)
-  colors.set('sand' , 0xc2b280)
-  colors.set('desert-sand', 0xf4a460)
-  colors.set('dirt' , 0xbb8b00)
-  colors.set('stone', 0x8d8d8d)
-  colors.set('ice'  , 0xb9e8ea)
-  colors.set('snow' , 0xfffafa)
-  colors.set('lava' , 0xcf1020)
-  colors.set('volcanic', 0x3d3f3e)
-  colors.set('void' , 0x000000)
-
+  
   const val = colors.get(tileId)
-  return val ? val : 0xff0000
+  return val ? val : new Material(0xff0000)
 }
 
 const obtainHeight = ({ tileId, height, visible }: TileProps) => {
@@ -63,7 +63,7 @@ const obtainHeight = ({ tileId, height, visible }: TileProps) => {
 export const Tile = (props: TileProps) => (
   props.visible ? (
     <Tile3D x={props.pos[0]} y={props.pos[1]}
-      height={obtainHeight(props)} color={obtainColor(props)} />
+      height={obtainHeight(props)} material={obtainColor(props)} />
   ): null
 )
 /*

@@ -58,12 +58,12 @@ export class Renderer extends React.Component<RendererProps> {
       this.camera = new THREE.OrthographicCamera(-d, d, d, -d, 0.1, 1000)
       this.scene.add(this.camera)
 
-      let light = new THREE.AmbientLight(0xFFFFFF);
-      light.position.set(64, 10, 64);
-      this.scene.add(light);
-/*      let l2 = new THREE.PointLight(0xFFFFFF, 1, 30, 1);
-      l2.position.set(64, 12, 64);
-      this.scene.add(light); */
+      let light = new THREE.AmbientLight(0xFFFFFF)
+      light.position.set(64, 10, 64)
+      this.scene.add(light)
+      let l2 = new THREE.PointLight(0xFFFFFF, 1, 30, 1)
+      l2.position.set(64, 2, 64)
+      this.scene.add(light)
     }
 
     componentDidMount() {

@@ -4,14 +4,16 @@ import * as THREE from 'three'
 
 import Ctx from './Context'
 import type { Context3D, ContextProps } from './Context'
+import type { Material } from './Material'
 
 export type TileProps = {
   x: number,
   y: number,
   height: number,
-  color: number,
+  material: Material,
 }
 
+const geom = new THREE.PlaneGeometry(1, 1) 
 
 class Tile extends React.Component<ContextProps & TileProps> {
 
@@ -23,8 +25,8 @@ class Tile extends React.Component<ContextProps & TileProps> {
   constructor(props: ContextProps & TileProps) {
     super(props)
     this.ctx = props.ctx
-    this.geometry = new THREE.PlaneGeometry(1, 1) // new THREE.BoxGeometry(1, props.height, 1)
-    this.material = new THREE.MeshLambertMaterial( { color: props.color, side: THREE.DoubleSide })
+    this.geometry = geom // new THREE.BoxGeometry(1, props.height, 1)
+    this.material = props.material.material
     this.cube = new THREE.Mesh(this.geometry, this.material)
     this.cube.position.set(props.x, props.height/12, props.y);
     this.cube.rotation.x = Math.PI * -0.5
@@ -43,9 +45,6 @@ class Tile extends React.Component<ContextProps & TileProps> {
       //      this.geometry = new THREE.PlaneGeometry(1, 1)
       this.cube.position.setY(newProps.height/12)
      // this.cube.geometry = this.geometry
-    }
-    if (oldProps.color !== newProps.color) {
-      this.material.color.set(newProps.color)
     }
     if (oldProps.x !== newProps.x || oldProps.y !== newProps.y) {
       this.cube.position.setX(newProps.x)
