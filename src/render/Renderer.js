@@ -6,6 +6,7 @@ import type { Node } from 'react'
 import * as THREE from 'three'
 
 import Ctx from './Context'
+import type { Object3D } from './Object3D'
 
 /*
   one big assumption:
@@ -27,6 +28,7 @@ export class Renderer extends React.Component<RendererProps> {
     renderer: THREE.WebGLRenderer
     scene: THREE.Scene
     camera: THREE.Camera | null
+    rends: Map<Object3D<any>, () => void>
 
     constructor(props: RendererProps) {
       super(props)
@@ -35,6 +37,7 @@ export class Renderer extends React.Component<RendererProps> {
       this.frameId = null
       this.aspect = 1
       this.camera = null
+      this.rends = new Map()
     }
 
     updateWinSize = () => {
@@ -86,6 +89,9 @@ export class Renderer extends React.Component<RendererProps> {
     }
   
     renderScene = () => {
+      this.rends.forEach((v, k) => {
+        v()
+      })
       this.renderer.render(this.scene, this.camera)
     }
 
@@ -120,6 +126,15 @@ export class Renderer extends React.Component<RendererProps> {
         this.scene.remove(geom)
       }
     }
+
+    evadd(obj: Object3D<any>) {
+      this.rends.set(obj, obj.onRender)
+    }
+
+    evdel(obj: Object3D<any>) {
+      this.rends.delete(obj)
+    }
+
 
 }
 

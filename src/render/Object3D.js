@@ -4,6 +4,8 @@ import React from 'react'
 import * as THREE from 'three'
 import type { Context3D, ContextProps } from './Context'
 
+let id = () => {}
+
 export class Object3D<Props: {}> extends React.Component<ContextProps & Props> {
 
   ctx: Context3D
@@ -17,7 +19,11 @@ export class Object3D<Props: {}> extends React.Component<ContextProps & Props> {
 
   componentDidMount() {
     if (this.ctx.renderer) {
-      this.ctx.renderer.add(this.obj)
+      let renderer = this.ctx.renderer 
+      renderer.add(this.obj)
+      if (this._isRender()) {
+        renderer.evadd(this)
+      }
     }
   }
 
@@ -35,14 +41,27 @@ export class Object3D<Props: {}> extends React.Component<ContextProps & Props> {
 
   componentWillUnmount() {
     if (this.ctx.renderer && this.obj) {
-      this.ctx.renderer.remove(this.obj)
+      let renderer = this.ctx.renderer
+      renderer.remove(this.obj)
+      if (this._isRender()) {
+        renderer.evdel(this)
+      }
     }
   }
+
+  onRender = id
 
   render() {
     return null
   }
 
+
+  _isRender = () => {
+
+    return this.onRender !== id
+  }
+
 }
+
 
 export default Object3D

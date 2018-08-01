@@ -95,6 +95,8 @@ export class Map extends React.Component<MapProps, MapState> {
               <DirectionalLight color={0x909090} />
               
               <Camera lookAt={[this.props.map.playerPos.x, this.props.map.playerPos.y]} />
+              
+              <Player map={this.props.map} />
               {map}
             </Renderer>
             <Stats stats={this.props.map.stats} />
